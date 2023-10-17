@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import "./Sidebar.css"
-import { Avatar, Typography, Select, MenuItem, InputLabel, FormControl } from "@mui/material"
+import { Avatar, Typography, Select, MenuItem, InputLabel, FormControl, Button } from "@mui/material"
 
 export default function Sidebar() {
   var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
@@ -18,7 +18,7 @@ export default function Sidebar() {
       </div>
       <div className="sidebarProjects">
         <FormControl>
-          <InputLabel id="demo-multiple-name-label">Project</InputLabel>
+          <InputLabel id="demo-multiple-name-label">Select Project</InputLabel>
           <Select labelId="demo-multiple-name-label" id="demo-multiple-name" value={projectName} label="Project Name" style={{ minWidth: 200 }} onChange={(e)=>handleProjectChange(e)}>
             {names.map((name) => (
               <MenuItem key={name} value={name}>
@@ -27,6 +27,11 @@ export default function Sidebar() {
             ))}
           </Select>
         </FormControl>
+      </div>
+      <div className="sidebarOptions">
+      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Download Report</Button>
+      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Check Analytics</Button>
+      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Send Report</Button>
       </div>
     </div>
   )
