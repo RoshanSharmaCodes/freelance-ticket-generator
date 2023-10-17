@@ -29,9 +29,10 @@ export default function Sidebar() {
         </FormControl>
       </div>
       <div className="sidebarOptions">
-      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Download Report</Button>
       <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Check Analytics</Button>
+      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Download Report</Button>
       <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Send Report</Button>
+      <Button variant="contained" className="standardBtn" style={{width:200,marginBottom:10,height:50}}>Add Contacts</Button>
       </div>
     </div>
   )
