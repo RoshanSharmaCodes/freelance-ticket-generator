@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import "./Sidebar.css"
-import { Avatar, Typography, Select, MenuItem, InputLabel, Box, FormControl, Button, Modal } from "@mui/material"
+import { Avatar, Typography, Select, MenuItem, Input, InputLabel, Box, FormControl, Button, Modal, FormHelperText } from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers"
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 
 export default function Sidebar() {
   const style = {
@@ -102,12 +105,10 @@ export default function Sidebar() {
       {/* Contact Modal */}
       <Modal open={contactModal} onClose={closeContactModal}>
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
+          <Input id="project-name-input" />
+          <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
+          <Input id="project-name-input" />
         </Box>
       </Modal>
 
@@ -138,12 +139,19 @@ export default function Sidebar() {
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
+          <Input id="project-name-input" />
+
+          <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker />
+          </LocalizationProvider>
+
+          <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
+          <Input id="clients-name" />
+
+          <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
+          <Input id="clients-email" />
         </Box>
       </Modal>
     </div>
