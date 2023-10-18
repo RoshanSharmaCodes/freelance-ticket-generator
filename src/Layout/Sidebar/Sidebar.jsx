@@ -43,6 +43,8 @@ export default function Sidebar() {
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
   const [projectModal, setProjectModal] = useState(false)
+  const [clientListModal, setClientListModal] = useState(false)
+  const [projectListModal, setProjectListModal] = useState(false)
 
   const openContactModal = () => {
     setContactModal(true)
@@ -72,6 +74,22 @@ export default function Sidebar() {
 
   const closeProjectModal = () => {
     setProjectModal(false)
+  }
+
+  const openClientListModal = () => {
+    setClientListModal(true)
+  }
+
+  const closeClientListModal = () => {
+    setClientListModal(false)
+  }
+
+  const openProjectListModal = () => {
+    setProjectListModal(true)
+  }
+
+  const closeProjectListModal = () => {
+    setProjectListModal(false)
   }
 
   const handleProjectChange = (e) => {
@@ -114,10 +132,16 @@ export default function Sidebar() {
           Send Report
         </Button>
         <Button variant="contained" className="standardBtn" onClick={openContactModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
-          Add Contacts
+          Add Client
         </Button>
         <Button variant="contained" className="standardBtn" onClick={openProjectModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           Add Projects
+        </Button>
+        <Button variant="contained" className="standardBtn" onClick={openClientListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
+          List Clients
+        </Button>
+        <Button variant="contained" className="standardBtn" onClick={openProjectListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
+          List Projects
         </Button>
       </div>
 
@@ -128,6 +152,7 @@ export default function Sidebar() {
           <Input id="project-name-input" />
           <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
           <Input id="project-name-input" />
+          <Button variant="contained">Add Client</Button>
         </Box>
       </Modal>
 
@@ -159,9 +184,9 @@ export default function Sidebar() {
             </Table>
           </TableContainer>
           <div className="totalAnalyticsDiv">
-          <InputLabel htmlFor="project-total-task">Total Tasks :</InputLabel>
-          <InputLabel htmlFor="project-total-hours">Total Hours :</InputLabel>
-          <InputLabel htmlFor="project-name-input">Total Cost :</InputLabel>
+            <InputLabel htmlFor="project-total-task">Total Tasks :</InputLabel>
+            <InputLabel htmlFor="project-total-hours">Total Hours :</InputLabel>
+            <InputLabel htmlFor="project-name-input">Total Cost :</InputLabel>
           </div>
         </Box>
       </Modal>
@@ -177,6 +202,7 @@ export default function Sidebar() {
           </Select>
           <InputLabel htmlFor="project-name-input">Message</InputLabel>
           <TextField id="outlined-multiline-static" multiline rows={4} />
+          <Button variant="contained">Send</Button>
         </Box>
       </Modal>
 
@@ -196,6 +222,68 @@ export default function Sidebar() {
 
           <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
           <Input id="clients-email" />
+
+          <Button variant="contained">Add Project</Button>
+        </Box>
+      </Modal>
+
+      {/* Check Analytics */}
+      <Modal open={clientListModal} onClose={closeClientListModal}>
+        <Box sx={style}>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Task Name</TableCell>
+                  <TableCell align="right">Status</TableCell>
+                  <TableCell align="right">Hours</TableCell>
+                  <TableCell align="right">Cost&nbsp;($)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.calories}</TableCell>
+                    <TableCell align="right">{row.fat}</TableCell>
+                    <TableCell align="right">{row.carbs}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Modal>
+
+      {/* Check Analytics */}
+      <Modal open={projectListModal} onClose={closeProjectListModal}>
+        <Box sx={style}>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Task Name</TableCell>
+                  <TableCell align="right">Status</TableCell>
+                  <TableCell align="right">Hours</TableCell>
+                  <TableCell align="right">Cost&nbsp;($)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.calories}</TableCell>
+                    <TableCell align="right">{row.fat}</TableCell>
+                    <TableCell align="right">{row.carbs}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </Modal>
     </div>
