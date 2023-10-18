@@ -11,6 +11,7 @@ import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
+import { DeleteOutline, EditNoteOutlined } from "@mui/icons-material"
 
 export default function Sidebar() {
   const style = {
@@ -164,9 +165,9 @@ export default function Sidebar() {
               <TableHead>
                 <TableRow>
                   <TableCell>Task Name</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Hours</TableCell>
-                  <TableCell align="right">Cost&nbsp;($)</TableCell>
+                  <TableCell align="center">Status</TableCell>
+                  <TableCell align="center">Hours</TableCell>
+                  <TableCell align="center">Cost&nbsp;($)</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -175,9 +176,9 @@ export default function Sidebar() {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="center">{row.calories}</TableCell>
+                    <TableCell align="center">{row.fat}</TableCell>
+                    <TableCell align="center">{row.carbs}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -227,17 +228,17 @@ export default function Sidebar() {
         </Box>
       </Modal>
 
-      {/* Check Analytics */}
+      {/* Clients List */}
       <Modal open={clientListModal} onClose={closeClientListModal}>
         <Box sx={style}>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Task Name</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Hours</TableCell>
-                  <TableCell align="right">Cost&nbsp;($)</TableCell>
+                  <TableCell>Client's Name</TableCell>
+                  <TableCell align="center">Client's Email</TableCell>
+                  <TableCell align="center">Project Name</TableCell>
+                  <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -246,9 +247,9 @@ export default function Sidebar() {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="center">{row.calories}</TableCell>
+                    <TableCell align="center">{row.fat}</TableCell>
+                    <TableCell align="center"> <DeleteOutline/> <EditNoteOutlined/> </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -257,17 +258,19 @@ export default function Sidebar() {
         </Box>
       </Modal>
 
-      {/* Check Analytics */}
+      {/* Project List */}
       <Modal open={projectListModal} onClose={closeProjectListModal}>
         <Box sx={style}>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Task Name</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Hours</TableCell>
-                  <TableCell align="right">Cost&nbsp;($)</TableCell>
+                  <TableCell>Project Name</TableCell>
+                  <TableCell align="center">Status</TableCell>
+                  <TableCell align="center">Client's Name</TableCell>
+                  <TableCell align="center">Client's Email</TableCell>
+                  <TableCell align="center">Start Date</TableCell>
+                  <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -276,9 +279,11 @@ export default function Sidebar() {
                     <TableCell component="th" scope="row">
                       {row.name}
                     </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="center">{row.calories}</TableCell>
+                    <TableCell align="center">{row.fat}</TableCell>
+                    <TableCell align="center">{row.carbs}  </TableCell>
+                    <TableCell align="center"> 24/01/2000  </TableCell>
+                    <TableCell align="center"> <DeleteOutline/> <EditNoteOutlined/> </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
