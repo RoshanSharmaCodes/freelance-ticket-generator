@@ -20,6 +20,7 @@ export default function Sidebar() {
   const [contactModal, setContactModal] = useState(false)
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
+  const [projectModal, setProjectModal] = useState(false)
 
   const openContactModal = () => {
     setContactModal(true)
@@ -29,18 +30,26 @@ export default function Sidebar() {
     setContactModal(false)
   }
   const openAnalytictModal = () => {
-    setContactModal(true)
+    setAnalyticModal(true)
   }
 
   const closeAnalyticModal = () => {
-    setContactModal(false)
+    setAnalyticModal(false)
   }
   const openSendReportModal = () => {
-    setContactModal(true)
+    setSendReportModal(true)
   }
 
   const closeSendReportModal = () => {
-    setContactModal(false)
+    setSendReportModal(false)
+  }
+
+  const openProjectModal = () => {
+    setProjectModal(true)
+  }
+
+  const closeProjectModal = () => {
+    setProjectModal(false)
   }
 
   const handleProjectChange = (e) => {
@@ -85,6 +94,9 @@ export default function Sidebar() {
         <Button variant="contained" className="standardBtn" onClick={openContactModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           Add Contacts
         </Button>
+        <Button variant="contained" className="standardBtn" onClick={openProjectModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
+          Add Projects
+        </Button>
       </div>
 
       {/* Contact Modal */}
@@ -113,6 +125,18 @@ export default function Sidebar() {
 
       {/* Send Report */}
       <Modal open={sendReportModal} onClose={closeSendReportModal}>
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+
+      {/* Add Project Modal */}
+      <Modal open={projectModal} onClose={closeProjectModal}>
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
