@@ -152,8 +152,12 @@ export default function Sidebar() {
         <Button variant="contained" className="standardBtn" onClick={openClientListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           List Clients
         </Button>
-        <Button variant="contained" className="standardBtn" onClick={openProjectListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
+        <Button variant="contained" className="standardBtn" onClick={openProjectListModal} style={{ width: 200, marginBottom: 30, height: 50 }}>
           List Projects
+        </Button>
+
+        <Button variant="outlined" style={{ width: 200, marginBottom: 10, height: 50, borderRadius:30, backgroundColor:"white", color: "#1976d2", borderColor: "#1976d2", borderWidth:3 }}>
+          Logout
         </Button>
       </div>
 
