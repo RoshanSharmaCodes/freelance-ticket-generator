@@ -88,9 +88,9 @@ export default function Appbar() {
             variant="outlined"
             className="standardBtn"
             onClick={openAnalytictModal}
-            style={{ width: 100, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}
+            style={{ width: 170, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}
           >
-            Report
+            Check Report
           </Button>
           <Button
             variant="outlined"

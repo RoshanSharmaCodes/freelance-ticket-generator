@@ -19,7 +19,7 @@ export default function TaskBoard() {
     p: 4,
     display: "flex",
     flexDirection: "column",
-    height: "500px",
+    height: "600px",
     justifyContent: "space-evenly",
   }
 
@@ -62,6 +62,9 @@ export default function TaskBoard() {
           <Input id="clients-name" />
 
           <InputLabel htmlFor="project-name-input">No. of Hours Required</InputLabel>
+          <Input id="project-name-input" />
+
+          <InputLabel htmlFor="project-name-input">Cost Per Hour</InputLabel>
           <Input id="project-name-input" />
 
 
