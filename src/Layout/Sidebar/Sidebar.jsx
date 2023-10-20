@@ -60,21 +60,7 @@ export default function Sidebar() {
     justifyContent: "space-evenly",
   }
 
-  const sendReportModalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    height:"400px",
-    justifyContent: "space-evenly",
-  }
+
 
   function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein }
@@ -91,8 +77,6 @@ export default function Sidebar() {
   var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
   const [projectName, setProjectName] = useState("Project 1")
   const [contactModal, setContactModal] = useState(false)
-  const [analyticModal, setAnalyticModal] = useState(false)
-  const [sendReportModal, setSendReportModal] = useState(false)
   const [projectModal, setProjectModal] = useState(false)
   const [clientListModal, setClientListModal] = useState(false)
   const [projectListModal, setProjectListModal] = useState(false)
@@ -104,21 +88,7 @@ export default function Sidebar() {
   const closeContactModal = () => {
     setContactModal(false)
   }
-  const openAnalytictModal = () => {
-    setAnalyticModal(true)
-  }
-
-  const closeAnalyticModal = () => {
-    setAnalyticModal(false)
-  }
-  const openSendReportModal = () => {
-    setSendReportModal(true)
-  }
-
-  const closeSendReportModal = () => {
-    setSendReportModal(false)
-  }
-
+ 
   const openProjectModal = () => {
     setProjectModal(true)
   }
@@ -173,15 +143,6 @@ export default function Sidebar() {
         </FormControl>
       </div>
       <div className="sidebarOptions">
-        <Button variant="contained" className="standardBtn" onClick={openAnalytictModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
-          Check Analytics
-        </Button>
-        <Button variant="contained" className="standardBtn" style={{ width: 200, marginBottom: 10, height: 50 }}>
-          Download Report
-        </Button>
-        <Button variant="contained" className="standardBtn" onClick={openSendReportModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
-          Send Report
-        </Button>
         <Button variant="contained" className="standardBtn" onClick={openContactModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           Add Client
         </Button>
@@ -208,55 +169,9 @@ export default function Sidebar() {
       </Modal>
 
       {/* Check Analytics */}
-      <Modal open={analyticModal} onClose={closeAnalyticModal}>
-        <Box sx={style}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Task Name</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                  <TableCell align="center">Hours</TableCell>
-                  <TableCell align="center">Cost&nbsp;($)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="center">{row.calories}</TableCell>
-                    <TableCell align="center">{row.fat}</TableCell>
-                    <TableCell align="center">{row.carbs}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="totalAnalyticsDiv">
-            <InputLabel htmlFor="project-total-task">Total Tasks :</InputLabel>
-            <InputLabel htmlFor="project-total-hours">Total Hours :</InputLabel>
-            <InputLabel htmlFor="project-name-input">Total Cost :</InputLabel>
-          </div>
-        </Box>
-      </Modal>
 
-      {/* Send Report */}
-      <Modal open={sendReportModal} onClose={closeSendReportModal}>
-        <Box sx={sendReportModalStyle}>
-          <InputLabel id="demo-simple-select-label">Client's Name</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" value="Harshil" label="Age">
-            <MenuItem value={"Harshil"}>Harshil</MenuItem>
-            <MenuItem value={"Vipul"}>Vipul</MenuItem>
-            <MenuItem value={"Harman"}>Harman</MenuItem>
-          </Select>
-          <InputLabel htmlFor="project-name-input">Message</InputLabel>
-          <TextField id="outlined-multiline-static" multiline rows={4} />
-          <Button variant="contained">Send</Button>
-        </Box>
-      </Modal>
 
+   
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
         <Box sx={projectModalStyle}>
