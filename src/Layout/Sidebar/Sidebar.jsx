@@ -19,11 +19,61 @@ export default function Sidebar() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 700,
+    width: "100%",
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+    maxWidth:"700px"
+  }
+
+
+  const clientModalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    display: "flex",
+    flexDirection: "column",
+    height:"200px",
+    justifyContent: "space-evenly",
+  }
+
+  const projectModalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    display: "flex",
+    flexDirection: "column",
+    height:"400px",
+    justifyContent: "space-evenly",
+  }
+
+  const sendReportModalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    display: "flex",
+    flexDirection: "column",
+    height:"400px",
+    justifyContent: "space-evenly",
   }
 
   function createData(name, calories, fat, carbs, protein) {
@@ -148,7 +198,7 @@ export default function Sidebar() {
 
       {/* Contact Modal */}
       <Modal open={contactModal} onClose={closeContactModal}>
-        <Box sx={style}>
+        <Box sx={clientModalStyle}>
           <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
           <Input id="project-name-input" />
           <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
@@ -194,7 +244,7 @@ export default function Sidebar() {
 
       {/* Send Report */}
       <Modal open={sendReportModal} onClose={closeSendReportModal}>
-        <Box sx={style}>
+        <Box sx={sendReportModalStyle}>
           <InputLabel id="demo-simple-select-label">Client's Name</InputLabel>
           <Select labelId="demo-simple-select-label" id="demo-simple-select" value="Harshil" label="Age">
             <MenuItem value={"Harshil"}>Harshil</MenuItem>
@@ -209,7 +259,7 @@ export default function Sidebar() {
 
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
-        <Box sx={style}>
+        <Box sx={projectModalStyle}>
           <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
           <Input id="project-name-input" />
 
