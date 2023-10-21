@@ -12,6 +12,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import { DeleteOutline, EditNoteOutlined } from "@mui/icons-material"
+import { useForm } from "react-hook-form";
 
 export default function Sidebar() {
   const style = {
@@ -40,7 +41,7 @@ export default function Sidebar() {
     p: 4,
     display: "flex",
     flexDirection: "column",
-    height:"200px",
+    height:"250px",
     justifyContent: "space-evenly",
   }
 
@@ -117,6 +118,34 @@ export default function Sidebar() {
     setProjectName(e.target.value)
   }
 
+  const clientsForm = useForm({
+    defaultValues: {
+      name:"",
+      email:"",
+    }
+  })
+
+  const projectsForm = useForm({
+    defaultValues: {
+      projectNameInp:"",
+      projectStartDateInp: "",
+      clientsNameInp: "",
+      clientsEmailInp: ""
+    }
+  })
+
+  const { register: clientRegister, handleSubmit:handleClientSubmit, formState:clientFormState } = clientsForm;
+  const { errors } = clientFormState;
+  const submitClientsForm = (data)=>{
+  
+  }
+  
+  const { register: projectRegister, handleSubmit:handleProjectSubmit, formState:projectFormState } = projectsForm;
+  const { errors: projectError } = projectFormState;
+  const submitProjectForm = (data)=>{
+    console.log(data)
+  }
+
   return (
     <div className="sidebarContainer">
       <div className="sidebarProfile">
@@ -163,13 +192,15 @@ export default function Sidebar() {
 
       {/* Contact Modal */}
       <Modal open={contactModal} onClose={closeContactModal}>
+        <form onSubmit={handleClientSubmit(submitClientsForm)}>
         <Box sx={clientModalStyle}>
           <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
-          <Input id="project-name-input" />
+          <TextField id="name" {...clientRegister("name",{required:"Please enter client's name"})} error={!!errors.projectName} helperText={errors.name?.message}/>
           <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
-          <Input id="project-name-input" />
-          <Button variant="contained">Add Client</Button>
+          <TextField type="email" id="email" {...clientRegister("email",{required:"Please enter Email",pattern: "/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"})} error={!!errors.email} helperText={errors.email?.message}/>
+          <Button type="submit" variant="contained">Add Client</Button>
         </Box>
+        </form>
       </Modal>
 
       {/* Check Analytics */}
@@ -178,9 +209,10 @@ export default function Sidebar() {
    
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
+        <form onSubmit={handleProjectSubmit(submitProjectForm)}>
         <Box sx={projectModalStyle}>
           <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
-          <Input id="project-name-input" />
+          <TextField id="project-name-input" {...projectRegister("projectNameInp",{required:"Please enter project's name"})} helperText={projectError.projectNameInp?.message} error={!!projectError.projectNameInp}/>
 
           <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -188,13 +220,14 @@ export default function Sidebar() {
           </LocalizationProvider>
 
           <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
-          <Input id="clients-name" />
+          <TextField id="clients-name" {...projectRegister("clientsNameInp",{required:"Please enter client's name"})} helperText={projectError.clientsNameInp?.message} error={!!projectError.clientsNameInp}/>
 
           <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
-          <Input id="clients-email" />
+          <TextField id="clients-email" {...projectRegister("clientsEmailInp",{required:"Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"})} helperText={projectError.clientsEmailInp?.message} error={!!projectError.clientsEmailInp}/>
 
-          <Button variant="contained">Add Project</Button>
+          <Button type="submit" variant="contained">Add Project</Button>
         </Box>
+        </form>
       </Modal>
 
       {/* Clients List */}
