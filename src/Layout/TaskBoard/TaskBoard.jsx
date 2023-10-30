@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import "./TaskBoard.css"
-import { Box, Button, Fab, Input, InputLabel, MenuItem, Modal, Select } from "@mui/material"
+import { Box, Button, Fab, Input, InputLabel, TextField, MenuItem, Modal, Select } from "@mui/material"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import AddIcon from "@mui/icons-material/Add"
 import Appbar from "../Appbar/Appbar"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
+import { useForm } from "react-hook-form";
 
 export default function TaskBoard() {
   const projectModalStyle = {
@@ -25,6 +26,25 @@ export default function TaskBoard() {
 
   const [taskModal, setTaskModal] = useState(false)
   const [taskStatus, setTaskStatus] = useState("Not Started")
+
+  const TaskForm = useForm({
+    defaultValues: {
+      taskNameInp:"",
+      taskStartDateInp: "",
+      taskDescInp: "",
+      taskHoursInp: "",
+      taskCostInp: "",
+      taskStatusInp: "",
+    }
+  })
+
+  const { register: taskRegister, handleSubmit:handleTaskSubmit, formState:taskFormState } = TaskForm;
+  const { errors } = taskFormState;
+
+  const taskCreateSubmit = () => {
+    console.log("Task Created")
+  }
+
 
   const openTaskModal = () => {
     setTaskStatus("Not Started")
@@ -49,23 +69,24 @@ export default function TaskBoard() {
       {/* Add Task Modal */}
 
       <Modal open={taskModal} onClose={closeTaskModal}>
+        <form onSubmit={handleTaskSubmit(taskCreateSubmit)}>
         <Box sx={projectModalStyle}>
           <InputLabel htmlFor="project-name-input">Task Name</InputLabel>
-          <Input id="project-name-input" />
+          <TextField id="project-name-input" {...taskRegister("taskNameInp",{required:"Please enter task name"})} error={!!errors.taskNameInp} helperText={errors.taskNameInp?.message} />
 
           <InputLabel htmlFor="project-start-date">Task Start Date</InputLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker />
+            <DatePicker {...taskRegister("taskStartDateInp",{required:"Please enter start date"})} error={!!errors.taskStartDateInp} helperText={errors.taskStartDateInp?.message} />
           </LocalizationProvider>
 
           <InputLabel htmlFor="clients-name">Task Description</InputLabel>
-          <Input id="clients-name" />
+          <TextField id="clients-name" {...taskRegister("taskDescInp",{required:"Please enter task description"})} error={!!errors.taskDescInp} helperText={errors.taskDescInp?.message} />
 
           <InputLabel htmlFor="project-name-input">No. of Hours Required</InputLabel>
-          <Input id="project-name-input" />
+          <TextField id="taskHoursInp" {...taskRegister("taskHoursInp",{required:"Please enter no of hours required"})} error={!!errors.taskHoursInp} helperText={errors.taskHoursInp?.message}/>
 
           <InputLabel htmlFor="project-name-input">Cost Per Hour</InputLabel>
-          <Input id="project-name-input" />
+          <TextField id="taskCostInp" {...taskRegister("taskCostInp",{required:"Please enter cost per hour"})} error={!!errors.taskCostInp} helperText={errors.taskCostInp?.message}/>
 
 
           <InputLabel id="demo-simple-select-label">Task Status</InputLabel>
@@ -75,8 +96,9 @@ export default function TaskBoard() {
             <MenuItem value={"Done"}>Done</MenuItem>
             <MenuItem value={"Problem Occured"}>Problem Occured</MenuItem>
           </Select>
-          <Button variant="contained">Add Task</Button>
+          <Button type="submit" variant="contained">Add Task</Button>
         </Box>
+        </form>
       </Modal>
     </div>
   )
