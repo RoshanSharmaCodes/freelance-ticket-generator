@@ -1,32 +1,14 @@
 import React, { useState } from "react"
 import "./Sidebar.css"
-import { Avatar, Typography, Select, MenuItem, Input, InputLabel, Box, FormControl, Button, Modal, FormHelperText, TextField } from "@mui/material"
+import { Avatar, Typography, Select, MenuItem, InputLabel, Box, FormControl, Button, Modal,TextField } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import Paper from "@mui/material/Paper"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import { DeleteOutline, EditNoteOutlined } from "@mui/icons-material"
 import { useForm } from "react-hook-form";
+import ProjectListModal from "../../Components/ProjectListModal/ProjectListModal";
+import ClientListModal from "../../Components/ClientListModal/ClientListModal";
 
 export default function Sidebar() {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "100%",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    maxWidth:"700px"
-  }
 
 
   const clientModalStyle = {
@@ -61,19 +43,6 @@ export default function Sidebar() {
     justifyContent: "space-evenly",
   }
 
-
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein }
-  }
-
-  const rows = [
-    createData("Creating Layout", "Done", 6.0, 24),
-    createData("Login Form", "WIP", 9.0, 37),
-    createData("Registration Form", "Done", 16.0, 24),
-    createData("State Management", "Done", 3.7, 67),
-    createData("Creating Modal", "Done", 16.0, 49),
-  ]
 
   var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
   const [projectName, setProjectName] = useState("Project 1")
@@ -231,68 +200,10 @@ export default function Sidebar() {
       </Modal>
 
       {/* Clients List */}
-      <Modal open={clientListModal} onClose={closeClientListModal}>
-        <Box sx={style}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Client's Name</TableCell>
-                  <TableCell align="center">Client's Email</TableCell>
-                  <TableCell align="center">Project Name</TableCell>
-                  <TableCell align="center">Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="center">{row.calories}</TableCell>
-                    <TableCell align="center">{row.fat}</TableCell>
-                    <TableCell align="center"> <DeleteOutline/> <EditNoteOutlined/> </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Modal>
+      <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal}/>
 
       {/* Project List */}
-      <Modal open={projectListModal} onClose={closeProjectListModal}>
-        <Box sx={style}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Project Name</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                  <TableCell align="center">Client's Name</TableCell>
-                  <TableCell align="center">Client's Email</TableCell>
-                  <TableCell align="center">Start Date</TableCell>
-                  <TableCell align="center">Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="center">{row.calories}</TableCell>
-                    <TableCell align="center">{row.fat}</TableCell>
-                    <TableCell align="center">{row.carbs}  </TableCell>
-                    <TableCell align="center"> 24/01/2000  </TableCell>
-                    <TableCell align="center"> <DeleteOutline/> <EditNoteOutlined/> </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Modal>
+      <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} />
     </div>
   )
 }
