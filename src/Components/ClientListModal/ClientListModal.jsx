@@ -21,41 +21,45 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
   }
 
   const rows = [
-    { id: 1, projectName: "Snow", clientName: "Jon", projectCost: 20, projectHours: 35 },
-    { id: 2, projectName: "Lannister", clientName: "Cersei", projectCost: 20, projectHours: 42 },
-    { id: 3, projectName: "Lannister", clientName: "Jaime", projectCost: 20, projectHours: 45 },
-    { id: 4, projectName: "Stark", clientName: "Arya", projectCost: 20, projectHours: 16 },
+    { id: 1, clientName: "Snow", clientProject: "Project 1", clientEmail: "abc@gmail.com", clientEarning: 35 },
+    { id: 2, clientName: "Lannister", clientProject: "Project 2", clientEmail: "abc@gmail.com", clientEarning: 42 },
+    { id: 3, clientName: "Lannister", clientProject: "Project 3", clientEmail: "abc@gmail.com", clientEarning: 45 },
+    { id: 4, clientName: "Stark", clientProject: "Project 4", clientEmail: "abc@gmail.com", clientEarning: 16 },
   ]
 
-  const [projectListData, setProjectListData] = useState(rows)
+  const [clientListData, setClientListData] = useState(rows)
 
   const columns = [
-    { field: "id", headerName: "Project ID", width: 90 },
-    {
-      field: "projectName",
-      headerName: "Project Name",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "projectHours",
-      headerName: "Project Hours",
-      width: 150,
-      editable: false,
-    },
-    {
-      field: "projectCost",
-      headerName: "Project Cost",
-      type: "number",
-      width: 110,
-      editable: false,
-    },
     {
       field: "clientName",
-      headerName: "Client Name",
+      headerName: "Client's Name",
+      width: 150,
+      editable: true,
+      align: "left",
+
+    },
+    {
+      field: "clientProject",
+      headerName: "Client's Project",
+      width: 130,
+      editable: false,
+      align:"center"
+    },
+    {
+      field: "clientEmail",
+      headerName: "Client's Email",
+      type: "email",
+      width: 200,
+      editable: false,
+      align:"left"
+    },
+    {
+      field: "clientEarning",
+      headerName: "Earnings",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
-      width: 160,
+      width: 100,
+      align:"center"
     },
     {
       field: "actions",
@@ -63,7 +67,7 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
       headerName: "Actions",
       width: 100,
       getActions: ({ id }) => {
-        const isInEditMode = projectListData[id]?.mode === GridRowModes.Edit
+        const isInEditMode = clientListData[id]?.mode === GridRowModes.Edit
 
         if (isInEditMode) {
           return [
@@ -101,7 +105,7 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
       <Modal open={clientListModal} onClose={closeClientListModal}>
         <Box sx={style}>
           <DataGrid
-            rows={projectListData}
+            rows={clientListData}
             columns={columns}
             initialState={{
               pagination: {

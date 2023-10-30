@@ -40,15 +40,17 @@ export default function ProjectListModal({projectListModal,closeProjectListModal
     {
       field: "projectHours",
       headerName: "Project Hours",
-      width: 150,
+      width: 100,
       editable: false,
+      align:"center",
     },
     {
       field: "projectCost",
       headerName: "Project Cost",
       type: "number",
-      width: 110,
+      width: 100,
       editable: false,
+      align:"center",
     },
     {
       field: "clientName",
