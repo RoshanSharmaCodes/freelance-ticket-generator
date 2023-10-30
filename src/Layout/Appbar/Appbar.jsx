@@ -19,6 +19,7 @@ import {
   TextField,
   Toolbar,
 } from "@mui/material"
+import { useForm } from "react-hook-form"
 
 export default function Appbar() {
   const style = {
@@ -51,6 +52,20 @@ export default function Appbar() {
 
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
+  
+  const sendReportForm = useForm({
+    defaultValues: {
+      senderName: "",
+      senderMessage: "",
+    }
+  })
+
+  const { register: sendReportRegister, handleSubmit:handleSendReport, formState:sendReportFormState } = sendReportForm;
+  const { errors } = sendReportFormState;
+
+  const sendReportSubmit = () => {
+    console.log("Report Send")
+  }
 
   const openAnalytictModal = () => {
     setAnalyticModal(true)
@@ -142,17 +157,19 @@ export default function Appbar() {
 
       {/* Send Report */}
       <Modal open={sendReportModal} onClose={closeSendReportModal}>
+        <form onSubmit={handleSendReport(sendReportSubmit)}>
         <Box sx={sendReportModalStyle}>
           <InputLabel id="demo-simple-select-label">Client's Name</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" value="Harshil" label="Age">
+          <Select labelId="demo-simple-select-label" {...sendReportRegister("senderName")} error={!!errors.senderName} helperText={errors.senderName?.message} id="demo-simple-select" value="Harshil" label="Age">
             <MenuItem value={"Harshil"}>Harshil</MenuItem>
             <MenuItem value={"Vipul"}>Vipul</MenuItem>
             <MenuItem value={"Harman"}>Harman</MenuItem>
           </Select>
           <InputLabel htmlFor="project-name-input">Message</InputLabel>
-          <TextField id="outlined-multiline-static" multiline rows={4} />
-          <Button variant="contained">Send</Button>
+          <TextField id="outlined-multiline-static" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} multiline rows={4} />
+          <Button type="submit" variant="contained">Send</Button>
         </Box>
+        </form>
       </Modal>
     </div>
   )
