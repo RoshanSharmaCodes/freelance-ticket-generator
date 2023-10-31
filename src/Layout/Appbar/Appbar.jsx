@@ -97,24 +97,24 @@ export default function Appbar() {
 
   return (
     <div className="appbarContainer">
-      <AppBar position="static">
+      <AppBar style={{position:"fixed",width: "100%",maxWidth:1092, right: 50,top: 30,borderRadius:10}}>
         <Toolbar>
           <Button
             variant="outlined"
             className="standardBtn"
             onClick={openAnalytictModal}
-            style={{ width: 170, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}
+            style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}
           >
             Check Report
           </Button>
           <Button
             variant="outlined"
             onClick={openSendReportModal}
-            style={{ width: 170, height: 50, color: "white", borderColor: "white",  marginRight:"10px" }}
+            style={{ width: 150, height: 50, color: "white", borderColor: "white",  marginRight:"10px" }}
           >
             Send Report
           </Button>
-          <Button variant="outlined" style={{ width: 200, height: 50, color: "white", borderColor: "white" }}>
+          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white" }}>
             Download Report
           </Button>
         </Toolbar>

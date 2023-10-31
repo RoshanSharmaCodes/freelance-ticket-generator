@@ -60,11 +60,24 @@ export default function TaskBoard() {
   }
   return (
     <div className="taskboardContainer">
-      <Appbar />
+      <Appbar/>
+      <div className="taskboardMain">
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+      </div>
 
-      <TaskCard />
-
-      <Fab color="primary" aria-label="add" sx={{ position: "absolute", right: 30, bottom: 80 }} onClick={openTaskModal}>
+      <Fab color="primary" aria-label="add" sx={{ position: "fixed", right: 30, bottom: 30 }} onClick={openTaskModal}>
         <AddIcon />
       </Fab>
 

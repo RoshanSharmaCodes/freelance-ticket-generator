@@ -38,7 +38,7 @@ export default function TaskCard() {
 
   return (
     <div>
-      <Card sx={{ height: 250, width: 300 }}>
+      <Card sx={{ height: 260, width: 300 }}>
         <CardHeader
           sx={{ fontSize: 15, backgroundColor: "#e0e0e0" }}
           title={"Dashboard UI"}
