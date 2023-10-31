@@ -1,16 +1,15 @@
 import React, { useState } from "react"
 import "./Sidebar.css"
-import { Avatar, Typography, Select, MenuItem, InputLabel, Box, FormControl, Button, Modal,TextField } from "@mui/material"
+import { Avatar, Typography, Select, MenuItem, InputLabel, Box, FormControl, Button, Modal, TextField } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { useForm } from "react-hook-form";
-import ProjectListModal from "../../Components/ProjectListModal/ProjectListModal";
-import ClientListModal from "../../Components/ClientListModal/ClientListModal";
+import { useForm } from "react-hook-form"
+import ProjectListModal from "../../Components/ProjectListModal/ProjectListModal"
+import ClientListModal from "../../Components/ClientListModal/ClientListModal"
+import Edit from "@mui/icons-material/Edit"
 
 export default function Sidebar() {
-
-
   const clientModalStyle = {
     position: "absolute",
     top: "50%",
@@ -23,7 +22,7 @@ export default function Sidebar() {
     p: 4,
     display: "flex",
     flexDirection: "column",
-    height:"250px",
+    height: "250px",
     justifyContent: "space-evenly",
   }
 
@@ -39,10 +38,9 @@ export default function Sidebar() {
     p: 4,
     display: "flex",
     flexDirection: "column",
-    height:"400px",
+    height: "400px",
     justifyContent: "space-evenly",
   }
-
 
   var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
   const [projectName, setProjectName] = useState("Project 1")
@@ -50,6 +48,7 @@ export default function Sidebar() {
   const [projectModal, setProjectModal] = useState(false)
   const [clientListModal, setClientListModal] = useState(false)
   const [projectListModal, setProjectListModal] = useState(false)
+  const [imageUrl, setImageUrl] = useState(null);
 
   const openContactModal = () => {
     setContactModal(true)
@@ -58,7 +57,7 @@ export default function Sidebar() {
   const closeContactModal = () => {
     setContactModal(false)
   }
- 
+
   const openProjectModal = () => {
     setProjectModal(true)
   }
@@ -87,38 +86,67 @@ export default function Sidebar() {
     setProjectName(e.target.value)
   }
 
+  const openProfilePicWindow = () => {
+    document.getElementById('upload-profile-pic-window').click();
+  }
+
+  const handleUploadProfilePic = (e) => {
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    const url = reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setImageUrl(reader.result)
+    }
+  }
+
   const clientsForm = useForm({
     defaultValues: {
-      name:"",
-      email:"",
-    }
+      name: "",
+      email: "",
+    },
   })
 
   const projectsForm = useForm({
     defaultValues: {
-      projectNameInp:"",
+      projectNameInp: "",
       projectStartDateInp: "",
       clientsNameInp: "",
-      clientsEmailInp: ""
-    }
+      clientsEmailInp: "",
+    },
   })
 
-  const { register: clientRegister, handleSubmit:handleClientSubmit, formState:clientFormState } = clientsForm;
-  const { errors } = clientFormState;
-  const submitClientsForm = (data)=>{
-  
-  }
-  
-  const { register: projectRegister, handleSubmit:handleProjectSubmit, formState:projectFormState } = projectsForm;
-  const { errors: projectError } = projectFormState;
-  const submitProjectForm = (data)=>{
+  const { register: clientRegister, handleSubmit: handleClientSubmit, formState: clientFormState } = clientsForm
+  const { errors } = clientFormState
+  const submitClientsForm = (data) => {}
+
+  const { register: projectRegister, handleSubmit: handleProjectSubmit, formState: projectFormState } = projectsForm
+  const { errors: projectError } = projectFormState
+  const submitProjectForm = (data) => {
     console.log(data)
   }
 
   return (
     <div className="sidebarContainer">
       <div className="sidebarProfile">
-        <Avatar sx={{ width: 150, height: 150 }} />
+        <div style={{position:"relative"}}>
+        <input id="upload-profile-pic-window" onChange={handleUploadProfilePic} style={{display:"none"}} accept="image/*" type="file" />
+            <Edit
+              onClick={openProfilePicWindow}
+              style={{
+                position: "absolute",
+                right: 0,
+                bottom: 20,
+                border: "2px solid white",
+                padding: "7px",
+                borderRadius: "50%",
+                backgroundColor: "#d4d4d4",
+                cursor: "pointer",
+                zIndex:100,
+              }}
+            />
+        <Avatar src={imageUrl} sx={{ width: 150, height: 150 }}>
+        </Avatar>
+        </div>
         <Typography variant="h6">Roshan Sharma</Typography>
       </div>
       <div className="sidebarProjects">
@@ -154,7 +182,19 @@ export default function Sidebar() {
           List Projects
         </Button>
 
-        <Button variant="outlined" style={{ width: 200, marginBottom: 10, height: 50, borderRadius:30, backgroundColor:"white", color: "#1976d2", borderColor: "#1976d2", borderWidth:3 }}>
+        <Button
+          variant="outlined"
+          style={{
+            width: 200,
+            marginBottom: 10,
+            height: 50,
+            borderRadius: 30,
+            backgroundColor: "white",
+            color: "#1976d2",
+            borderColor: "#1976d2",
+            borderWidth: 3,
+          }}
+        >
           Logout
         </Button>
       </div>
@@ -162,45 +202,73 @@ export default function Sidebar() {
       {/* Contact Modal */}
       <Modal open={contactModal} onClose={closeContactModal}>
         <form onSubmit={handleClientSubmit(submitClientsForm)}>
-        <Box sx={clientModalStyle}>
-          <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
-          <TextField id="name" {...clientRegister("name",{required:"Please enter client's name"})} error={!!errors.projectName} helperText={errors.name?.message}/>
-          <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
-          <TextField type="email" id="email" {...clientRegister("email",{required:"Please enter Email",pattern: "/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"})} error={!!errors.email} helperText={errors.email?.message}/>
-          <Button type="submit" variant="contained">Add Client</Button>
-        </Box>
+          <Box sx={clientModalStyle}>
+            <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
+            <TextField
+              id="name"
+              {...clientRegister("name", { required: "Please enter client's name" })}
+              error={!!errors.projectName}
+              helperText={errors.name?.message}
+            />
+            <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
+            <TextField
+              type="email"
+              id="email"
+              {...clientRegister("email", { required: "Please enter Email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+            <Button type="submit" variant="contained">
+              Add Client
+            </Button>
+          </Box>
         </form>
       </Modal>
 
       {/* Check Analytics */}
 
-
-   
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
         <form onSubmit={handleProjectSubmit(submitProjectForm)}>
-        <Box sx={projectModalStyle}>
-          <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
-          <TextField id="project-name-input" {...projectRegister("projectNameInp",{required:"Please enter project's name"})} helperText={projectError.projectNameInp?.message} error={!!projectError.projectNameInp}/>
+          <Box sx={projectModalStyle}>
+            <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
+            <TextField
+              id="project-name-input"
+              {...projectRegister("projectNameInp", { required: "Please enter project's name" })}
+              helperText={projectError.projectNameInp?.message}
+              error={!!projectError.projectNameInp}
+            />
 
-          <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker />
-          </LocalizationProvider>
+            <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker />
+            </LocalizationProvider>
 
-          <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
-          <TextField id="clients-name" {...projectRegister("clientsNameInp",{required:"Please enter client's name"})} helperText={projectError.clientsNameInp?.message} error={!!projectError.clientsNameInp}/>
+            <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
+            <TextField
+              id="clients-name"
+              {...projectRegister("clientsNameInp", { required: "Please enter client's name" })}
+              helperText={projectError.clientsNameInp?.message}
+              error={!!projectError.clientsNameInp}
+            />
 
-          <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
-          <TextField id="clients-email" {...projectRegister("clientsEmailInp",{required:"Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/"})} helperText={projectError.clientsEmailInp?.message} error={!!projectError.clientsEmailInp}/>
+            <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
+            <TextField
+              id="clients-email"
+              {...projectRegister("clientsEmailInp", { required: "Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
+              helperText={projectError.clientsEmailInp?.message}
+              error={!!projectError.clientsEmailInp}
+            />
 
-          <Button type="submit" variant="contained">Add Project</Button>
-        </Box>
+            <Button type="submit" variant="contained">
+              Add Project
+            </Button>
+          </Box>
         </form>
       </Modal>
 
       {/* Clients List */}
-      <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal}/>
+      <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal} />
 
       {/* Project List */}
       <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} />
