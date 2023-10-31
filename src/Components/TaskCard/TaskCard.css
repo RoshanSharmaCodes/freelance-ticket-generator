@@ -1,0 +1,4 @@
+.taskDescription{
+    height: 80px;
+    text-overflow: ellipsis;
+}

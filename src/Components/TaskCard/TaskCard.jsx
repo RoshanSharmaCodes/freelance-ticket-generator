@@ -1,18 +1,40 @@
-import React from "react"
+import React, { useState } from "react"
 import "./TaskCard.css"
 import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
 import CardContent from "@mui/material/CardContent"
-import { Delete, Edit } from "@mui/icons-material"
+import { MoreVertRounded } from "@mui/icons-material"
 import IconButton from "@mui/material/IconButton"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select, { SelectChangeEvent } from "@mui/material/Select"
-import TextField from '@mui/material/TextField';
+import Menu from '@mui/material/Menu';
+import Select from "@mui/material/Select"
 
 export default function TaskCard() {
-  const handleTaskStatusChange = () => {}
+  const [taskStatus, setTaskStatus] = useState("Not Started")
+
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  const handleTaskStatusChange = (e) => {
+    setTaskStatus(e.target.value)
+  }
+
+  const openTaskCardMenu = (event) => {
+    console.log("HEllo")
+    setAnchorEl(event.currentTarget)
+  }
+
+  const closeTaskCardMenu = () => {
+    setAnchorEl(null)
+  }
+
+  const handleEditTaskCard = () => {
+
+  }
+
+  const handleDeleteTaskCard = () => {
+    
+  }
 
   return (
     <div>
@@ -22,16 +44,21 @@ export default function TaskCard() {
           title={"Dashboard UI"}
           subheader={"Created On: 12/04/2023"}
           action={
-            <IconButton>
-              {" "}
-              <Delete />{" "}
+            <IconButton
+              onClick={openTaskCardMenu}
+              id="task-menu-button"
+              aria-haspopup="true"
+              aria-expanded={Boolean(anchorEl) ? "true" : undefined}
+              aria-controls={Boolean(anchorEl) ? "task-menu" : undefined}
+            >
+              <MoreVertRounded />
             </IconButton>
           }
         />
-        <CardContent>          
-          <span >Will have to create a Dashboard Component</span>
-        <InputLabel id="demo-simple-select-label">Task Status:</InputLabel>
-          <Select id="demo-simple-select" value={"Not Started"} onChange={handleTaskStatusChange} style={{ height: 35 }}>
+        <CardContent>
+          <div className="taskDescription">Will have to create a Dashboard to show all tasks</div>
+          <InputLabel id="demo-simple-select-label">Task Status:</InputLabel>
+          <Select id="demo-simple-select" value={taskStatus} onChange={handleTaskStatusChange} style={{ height: 35 }}>
             <MenuItem value={"Not Started"}>Not Started</MenuItem>
             <MenuItem value={"WIP"}>WIP</MenuItem>
             <MenuItem value={"Done"}>Done</MenuItem>
@@ -39,6 +66,19 @@ export default function TaskCard() {
           </Select>
         </CardContent>
       </Card>
+      <Menu
+        id="task-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={closeTaskCardMenu}
+        keepMounted
+        MenuListProps={{
+          "aria-labelledby": "task-menu-button",
+        }}
+      >
+        <MenuItem onClick={handleEditTaskCard}>Edit</MenuItem>
+        <MenuItem onClick={handleDeleteTaskCard}>Delete</MenuItem>
+      </Menu>
     </div>
   )
 }
