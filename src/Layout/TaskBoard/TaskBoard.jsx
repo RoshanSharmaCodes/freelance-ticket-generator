@@ -129,8 +129,6 @@ export default function TaskBoard() {
 
             <InputLabel id="demo-simple-select-label">Task Status</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              label="Status"
               id="demo-simple-select"
               value={taskStatus}
               onChange={(e) => handleStatusChange(e)}
@@ -138,7 +136,7 @@ export default function TaskBoard() {
               <MenuItem value={"Not Started"}>Not Started</MenuItem>
               <MenuItem value={"WIP"}>WIP</MenuItem>
               <MenuItem value={"Done"}>Done</MenuItem>
-              <MenuItem value={"Problem Occured"}>Problem Occured</MenuItem>
+              <MenuItem value={"Problem Occured"}>Pending</MenuItem>
             </Select>
             <Button type="submit" variant="contained">
               Add Task

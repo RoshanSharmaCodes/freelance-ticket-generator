@@ -68,7 +68,7 @@ export default function Appbar() {
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
   const [addTeamModal, setAddTeamModal] = useState(false)
-  const [addTeamAccess, setAddTeamAccess] = useState("Member")
+  const [addTeamAccess, setAddTeamAccess] = useState("Viewer")
   
   
   const sendReportForm = useForm({
@@ -216,7 +216,8 @@ export default function Appbar() {
           <InputLabel >Grant Access As:</InputLabel>
           <Select onChange={handleAccessChange}  value={addTeamAccess}>
             <MenuItem value={"Admin"}>Admin</MenuItem>
-            <MenuItem value={"Member"}>Member</MenuItem>
+            <MenuItem value={"Editor"}>Editor</MenuItem>
+            <MenuItem value={"Viewer"}>Viewer</MenuItem>
           </Select>
           <InputLabel htmlFor="project-name-input">Email:</InputLabel>
           <TextField id="outlined-multiline-static" type="email" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} />

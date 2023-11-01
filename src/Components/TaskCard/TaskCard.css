@@ -2,3 +2,7 @@
     height: 80px;
     text-overflow: ellipsis;
 }
+.dropdownSection{
+    display: flex;
+    justify-content: space-between;
+}

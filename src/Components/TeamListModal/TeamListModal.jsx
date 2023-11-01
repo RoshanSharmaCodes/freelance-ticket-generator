@@ -22,9 +22,9 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
 
   const rows = [
     { id: 1, teamMemberName: "Snow Mark", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Admin" },
-    { id: 2, teamMemberName: "Lannister Kevin", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Admin" },
-    { id: 3, teamMemberName: "Lannister Robert", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Admin" },
-    { id: 4, teamMemberName: "Stark Braddy", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Admin"},
+    { id: 2, teamMemberName: "Lannister Kevin", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Editor" },
+    { id: 3, teamMemberName: "Lannister Robert", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Editor" },
+    { id: 4, teamMemberName: "Stark Braddy", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Viewer" },
   ]
 
   const [teamListData, setTeamListData] = useState(rows)
