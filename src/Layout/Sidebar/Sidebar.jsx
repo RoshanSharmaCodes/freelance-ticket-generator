@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import ProjectListModal from "../../Components/ProjectListModal/ProjectListModal"
 import ClientListModal from "../../Components/ClientListModal/ClientListModal"
 import Edit from "@mui/icons-material/Edit"
+import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 
 export default function Sidebar() {
   const clientModalStyle = {
@@ -48,6 +49,7 @@ export default function Sidebar() {
   const [projectModal, setProjectModal] = useState(false)
   const [clientListModal, setClientListModal] = useState(false)
   const [projectListModal, setProjectListModal] = useState(false)
+  const [teamListModal, setTeamListModal] = useState(false)
   const [imageUrl, setImageUrl] = useState(null);
 
   const openContactModal = () => {
@@ -81,7 +83,14 @@ export default function Sidebar() {
   const closeProjectListModal = () => {
     setProjectListModal(false)
   }
+  
+  const openTeamListModal = () => {
+    setTeamListModal(true)
+  }
 
+  const closeTeamListModal = () => {
+    setTeamListModal(false)
+  }
   const handleProjectChange = (e) => {
     setProjectName(e.target.value)
   }
@@ -178,10 +187,12 @@ export default function Sidebar() {
         <Button variant="contained" className="standardBtn" onClick={openClientListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           List Clients
         </Button>
-        <Button variant="contained" className="standardBtn" onClick={openProjectListModal} style={{ width: 200, marginBottom: 30, height: 50 }}>
+        <Button variant="contained" className="standardBtn" onClick={openProjectListModal} style={{ width: 200, marginBottom: 10, height: 50 }}>
           List Projects
         </Button>
-
+        <Button variant="contained" className="standardBtn" onClick={openTeamListModal} style={{ width: 200, marginBottom: 30, height: 50 }}>
+          List Team
+        </Button>
         <Button
           variant="outlined"
           style={{
@@ -224,8 +235,6 @@ export default function Sidebar() {
           </Box>
         </form>
       </Modal>
-
-      {/* Check Analytics */}
 
       {/* Add Project Modal */}
       <Modal open={projectModal} onClose={closeProjectModal}>
@@ -272,6 +281,9 @@ export default function Sidebar() {
 
       {/* Project List */}
       <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} />
+
+      {/* Team List */}
+      <TeamListModal TeamListModal={teamListModal} openTeamModal={openTeamListModal} closeTeamListModal={closeTeamListModal} />
     </div>
   )
 }

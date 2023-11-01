@@ -50,8 +50,26 @@ export default function Appbar() {
     justifyContent: "space-evenly",
   }
 
+  const addTeamModalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "400px",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 2,
+    display: "flex",
+    flexDirection: "column",
+    height: "250px",
+    justifyContent: "space-evenly",
+  }
+
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
+  const [addTeamModal, setAddTeamModal] = useState(false)
+  const [addTeamAccess, setAddTeamAccess] = useState("Member")
+  
   
   const sendReportForm = useForm({
     defaultValues: {
@@ -63,16 +81,32 @@ export default function Appbar() {
   const { register: sendReportRegister, handleSubmit:handleSendReport, formState:sendReportFormState } = sendReportForm;
   const { errors } = sendReportFormState;
 
+  const handleAccessChange = (e)=>{
+    setAddTeamAccess(e.target.value)
+  }
+  
   const sendReportSubmit = () => {
     console.log("Report Send")
   }
 
+  const sendInviteRequrest = () => {
+
+  }
+  
   const openAnalytictModal = () => {
     setAnalyticModal(true)
   }
 
   const closeAnalyticModal = () => {
     setAnalyticModal(false)
+  }
+
+  const openAddTeamModal = () => {
+    setAddTeamModal(true)
+  }
+
+  const closeAddTeamModal = () => {
+    setAddTeamModal(false)
   }
 
   const openSendReportModal = () => {
@@ -114,8 +148,11 @@ export default function Appbar() {
           >
             Send Report
           </Button>
-          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white" }}>
+          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}>
             Download Report
+          </Button>
+          <Button variant="outlined" onClick={openAddTeamModal} style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}>
+            Add Team
           </Button>
         </Toolbar>
       </AppBar>
@@ -168,6 +205,22 @@ export default function Appbar() {
           <InputLabel htmlFor="project-name-input">Message</InputLabel>
           <TextField id="outlined-multiline-static" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} multiline rows={4} />
           <Button type="submit" variant="contained">Send</Button>
+        </Box>
+        </form>
+      </Modal>
+
+      {/* Add Team */}
+      <Modal open={addTeamModal} onClose={closeAddTeamModal}>
+        <form onSubmit={handleSendReport(sendInviteRequrest)}>
+        <Box sx={addTeamModalStyle}>
+          <InputLabel >Grant Access As:</InputLabel>
+          <Select onChange={handleAccessChange}  value={addTeamAccess}>
+            <MenuItem value={"Admin"}>Admin</MenuItem>
+            <MenuItem value={"Member"}>Member</MenuItem>
+          </Select>
+          <InputLabel htmlFor="project-name-input">Email:</InputLabel>
+          <TextField id="outlined-multiline-static" type="email" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} />
+          <Button type="submit" variant="contained">Send Invite</Button>
         </Box>
         </form>
       </Modal>
