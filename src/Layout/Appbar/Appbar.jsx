@@ -1,98 +1,16 @@
 import React from "react"
 import { useState } from "react"
 import "./Appbar.css"
-import Paper from "@mui/material/Paper"
-import {
-  AppBar,
-  Box,
-  Button,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Toolbar,
-} from "@mui/material"
-import { useForm } from "react-hook-form"
+import { AppBar, Button, Toolbar } from "@mui/material"
+import AddTeamModal from "../../Components/AddTeamModal/AddTeamModal"
+import SendReportModal from "../../Components/SendReportModal/SendReportModal"
+import CheckReportModal from "../../Components/CheckReportModal/CheckReportModal"
 
 export default function Appbar() {
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "100%",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    maxWidth: "700px",
-  }
-  const sendReportModalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    height: "400px",
-    justifyContent: "space-evenly",
-  }
-
-  const addTeamModalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 2,
-    display: "flex",
-    flexDirection: "column",
-    height: "250px",
-    justifyContent: "space-evenly",
-  }
-
   const [analyticModal, setAnalyticModal] = useState(false)
   const [sendReportModal, setSendReportModal] = useState(false)
   const [addTeamModal, setAddTeamModal] = useState(false)
-  const [addTeamAccess, setAddTeamAccess] = useState("Viewer")
-  
-  
-  const sendReportForm = useForm({
-    defaultValues: {
-      senderName: "",
-      senderMessage: "",
-    }
-  })
 
-  const { register: sendReportRegister, handleSubmit:handleSendReport, formState:sendReportFormState } = sendReportForm;
-  const { errors } = sendReportFormState;
-
-  const handleAccessChange = (e)=>{
-    setAddTeamAccess(e.target.value)
-  }
-  
-  const sendReportSubmit = () => {
-    console.log("Report Send")
-  }
-
-  const sendInviteRequrest = () => {
-
-  }
-  
   const openAnalytictModal = () => {
     setAnalyticModal(true)
   }
@@ -131,100 +49,44 @@ export default function Appbar() {
 
   return (
     <div className="appbarContainer">
-      <AppBar style={{position:"fixed",width: "100%",maxWidth:1092, right: 50,top: 30,borderRadius:10}}>
+      <AppBar style={{ position: "fixed", width: "100%", maxWidth: 1092, right: 50, top: 30, borderRadius: 10 }}>
         <Toolbar>
           <Button
             variant="outlined"
             className="standardBtn"
             onClick={openAnalytictModal}
-            style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}
+            style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}
           >
             Check Report
           </Button>
           <Button
             variant="outlined"
             onClick={openSendReportModal}
-            style={{ width: 150, height: 50, color: "white", borderColor: "white",  marginRight:"10px" }}
+            style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}
           >
             Send Report
           </Button>
-          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}>
+          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}>
             Download Report
           </Button>
-          <Button variant="outlined" onClick={openAddTeamModal} style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight:"10px" }}>
+          <Button
+            variant="outlined"
+            onClick={openAddTeamModal}
+            style={{ width: 150, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}
+          >
             Add Team
           </Button>
         </Toolbar>
       </AppBar>
 
-      <Modal open={analyticModal} onClose={closeAnalyticModal}>
-        <Box sx={style}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Task Name</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                  <TableCell align="center">Hours</TableCell>
-                  <TableCell align="center">Cost&nbsp;($)</TableCell>
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="center">{row.calories}</TableCell>
-                    <TableCell align="center">{row.fat}</TableCell>
-                    <TableCell align="center">{row.carbs}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <div className="totalAnalyticsDiv">
-            <InputLabel htmlFor="project-total-task">Total Tasks :</InputLabel>
-            <InputLabel htmlFor="project-total-hours">Total Hours :</InputLabel>
-            <InputLabel htmlFor="project-name-input">Total Cost :</InputLabel>
-          </div>
-        </Box>
-      </Modal>
+      {/* Check Report */}
+      <CheckReportModal data={rows} analyticModal={analyticModal} closeAnalyticModal={closeAnalyticModal} />
 
       {/* Send Report */}
-      <Modal open={sendReportModal} onClose={closeSendReportModal}>
-        <form onSubmit={handleSendReport(sendReportSubmit)}>
-        <Box sx={sendReportModalStyle}>
-          <InputLabel id="demo-simple-select-label">Client's Name</InputLabel>
-          <Select labelId="demo-simple-select-label" {...sendReportRegister("senderName")} error={!!errors.senderName} helperText={errors.senderName?.message} id="demo-simple-select" value="Harshil" label="Age">
-            <MenuItem value={"Harshil"}>Harshil</MenuItem>
-            <MenuItem value={"Vipul"}>Vipul</MenuItem>
-            <MenuItem value={"Harman"}>Harman</MenuItem>
-          </Select>
-          <InputLabel htmlFor="project-name-input">Message</InputLabel>
-          <TextField id="outlined-multiline-static" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} multiline rows={4} />
-          <Button type="submit" variant="contained">Send</Button>
-        </Box>
-        </form>
-      </Modal>
+      <SendReportModal sendReportModal={sendReportModal} closeSendReportModal={closeSendReportModal} />
 
       {/* Add Team */}
-      <Modal open={addTeamModal} onClose={closeAddTeamModal}>
-        <form onSubmit={handleSendReport(sendInviteRequrest)}>
-        <Box sx={addTeamModalStyle}>
-          <InputLabel >Grant Access As:</InputLabel>
-          <Select onChange={handleAccessChange}  value={addTeamAccess}>
-            <MenuItem value={"Admin"}>Admin</MenuItem>
-            <MenuItem value={"Editor"}>Editor</MenuItem>
-            <MenuItem value={"Viewer"}>Viewer</MenuItem>
-          </Select>
-          <InputLabel htmlFor="project-name-input">Email:</InputLabel>
-          <TextField id="outlined-multiline-static" type="email" {...sendReportRegister("senderMessage", {required:"Please enter your message"})} error={!!errors.senderMessage} helperText={errors.senderMessage?.message} />
-          <Button type="submit" variant="contained">Send Invite</Button>
-        </Box>
-        </form>
-      </Modal>
+      <AddTeamModal addTeamModal={addTeamModal} closeAddTeamModal={closeAddTeamModal} />
     </div>
   )
 }

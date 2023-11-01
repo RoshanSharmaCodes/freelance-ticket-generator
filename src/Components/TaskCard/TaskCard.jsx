@@ -19,7 +19,7 @@ export default function TaskCard() {
   const handleTaskStatusChange = (e) => {
     setTaskStatus(e.target.value)
   }
-  
+
   const handleAssigneeChange = (e) => {
     setAssignee(e.target.value)
   }
@@ -59,21 +59,21 @@ export default function TaskCard() {
           <div className="taskDescription">Will have to create a Dashboard to show all tasks</div>
           <div className="dropdownSection">
             <div>
-              <InputLabel id="demo-simple-select-label">Task Status:</InputLabel>
-              <Select id="demo-simple-select" value={taskStatus} onChange={handleTaskStatusChange} style={{ height: 35, width:130 }}>
-                <MenuItem value={"Not Started"}>Not Started</MenuItem>
-                <MenuItem value={"WIP"}>WIP</MenuItem>
-                <MenuItem value={"Done"}>Done</MenuItem>
-                <MenuItem value={"Problem Occured"}>Problem Occured</MenuItem>
-              </Select>
-            </div>
-            <div>
               <InputLabel id="demo-simple-select-label">Assigned To:</InputLabel>
-              <Select id="demo-simple-select" value={assignee} onChange={handleAssigneeChange} style={{ height: 35, width:130 }}>
+              <Select id="demo-simple-select" value={assignee} onChange={handleAssigneeChange} style={{ height: 35, width: 130 }}>
                 <MenuItem value={"Raj"}>Raj</MenuItem>
                 <MenuItem value={"Vikas"}>Vikas</MenuItem>
                 <MenuItem value={"Sushrut"}>Sushrut</MenuItem>
                 <MenuItem value={"Sugam"}>Sugam</MenuItem>
+              </Select>
+            </div>
+            <div>
+              <InputLabel id="demo-simple-select-label">Task Status:</InputLabel>
+              <Select id="demo-simple-select" value={taskStatus} onChange={handleTaskStatusChange} style={{ height: 35, width: 130 }}>
+                <MenuItem value={"Not Started"}>Not Started</MenuItem>
+                <MenuItem value={"WIP"}>WIP</MenuItem>
+                <MenuItem value={"Done"}>Done</MenuItem>
+                <MenuItem value={"Pending"}>Pending</MenuItem>
               </Select>
             </div>
           </div>

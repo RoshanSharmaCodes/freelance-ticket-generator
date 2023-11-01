@@ -1,48 +1,15 @@
 import React, { useState } from "react"
 import "./Sidebar.css"
-import { Avatar, Typography, Select, MenuItem, InputLabel, Box, FormControl, Button, Modal, TextField } from "@mui/material"
-import { DatePicker } from "@mui/x-date-pickers"
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { useForm } from "react-hook-form"
+import { Avatar, Typography, Select, MenuItem, InputLabel,FormControl, Button } from "@mui/material"
 import ProjectListModal from "../../Components/ProjectListModal/ProjectListModal"
 import ClientListModal from "../../Components/ClientListModal/ClientListModal"
 import Edit from "@mui/icons-material/Edit"
 import TeamListModal from "../../Components/TeamListModal/TeamListModal"
+import AddClientModal from "../../Components/AddClientModal/AddClientModal"
+import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
 
 export default function Sidebar() {
-  const clientModalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    height: "250px",
-    justifyContent: "space-evenly",
-  }
-
-  const projectModalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "400px",
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    display: "flex",
-    flexDirection: "column",
-    height: "400px",
-    justifyContent: "space-evenly",
-  }
-
+  
   var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
   const [projectName, setProjectName] = useState("Project 1")
   const [contactModal, setContactModal] = useState(false)
@@ -106,32 +73,6 @@ export default function Sidebar() {
     reader.onloadend = () => {
       setImageUrl(reader.result)
     }
-  }
-
-  const clientsForm = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-    },
-  })
-
-  const projectsForm = useForm({
-    defaultValues: {
-      projectNameInp: "",
-      projectStartDateInp: "",
-      clientsNameInp: "",
-      clientsEmailInp: "",
-    },
-  })
-
-  const { register: clientRegister, handleSubmit: handleClientSubmit, formState: clientFormState } = clientsForm
-  const { errors } = clientFormState
-  const submitClientsForm = (data) => {}
-
-  const { register: projectRegister, handleSubmit: handleProjectSubmit, formState: projectFormState } = projectsForm
-  const { errors: projectError } = projectFormState
-  const submitProjectForm = (data) => {
-    console.log(data)
   }
 
   return (
@@ -210,71 +151,11 @@ export default function Sidebar() {
         </Button>
       </div>
 
-      {/* Contact Modal */}
-      <Modal open={contactModal} onClose={closeContactModal}>
-        <form onSubmit={handleClientSubmit(submitClientsForm)}>
-          <Box sx={clientModalStyle}>
-            <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
-            <TextField
-              id="name"
-              {...clientRegister("name", { required: "Please enter client's name" })}
-              error={!!errors.projectName}
-              helperText={errors.name?.message}
-            />
-            <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
-            <TextField
-              type="email"
-              id="email"
-              {...clientRegister("email", { required: "Please enter Email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-            />
-            <Button type="submit" variant="contained">
-              Add Client
-            </Button>
-          </Box>
-        </form>
-      </Modal>
+      {/* Client Modal */}
+     <AddClientModal contactModal={contactModal} closeContactModal={closeContactModal} />
 
       {/* Add Project Modal */}
-      <Modal open={projectModal} onClose={closeProjectModal}>
-        <form onSubmit={handleProjectSubmit(submitProjectForm)}>
-          <Box sx={projectModalStyle}>
-            <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
-            <TextField
-              id="project-name-input"
-              {...projectRegister("projectNameInp", { required: "Please enter project's name" })}
-              helperText={projectError.projectNameInp?.message}
-              error={!!projectError.projectNameInp}
-            />
-
-            <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker />
-            </LocalizationProvider>
-
-            <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
-            <TextField
-              id="clients-name"
-              {...projectRegister("clientsNameInp", { required: "Please enter client's name" })}
-              helperText={projectError.clientsNameInp?.message}
-              error={!!projectError.clientsNameInp}
-            />
-
-            <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
-            <TextField
-              id="clients-email"
-              {...projectRegister("clientsEmailInp", { required: "Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
-              helperText={projectError.clientsEmailInp?.message}
-              error={!!projectError.clientsEmailInp}
-            />
-
-            <Button type="submit" variant="contained">
-              Add Project
-            </Button>
-          </Box>
-        </form>
-      </Modal>
+      <AddProjectModal projectModal={projectModal} closeProjectModal={closeProjectModal} />
 
       {/* Clients List */}
       <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal} />
