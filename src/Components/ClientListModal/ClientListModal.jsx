@@ -1,12 +1,12 @@
 import { DataGrid, GridActionsCell, GridRowModes, GridActionsCellItem, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
-import { Box, Modal} from "@mui/material"
+import { Box, Modal } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 
-export default function ClientListModal({clientListModal,closeClientListModal,openClientListModal,data}) {
+export default function ClientListModal({ clientListModal, closeClientListModal, openClientListModal, data }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,8 +20,17 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
     maxWidth: "800px",
   }
 
-
   const [clientListData, setClientListData] = useState(data)
+
+  const handleCancelClick = () => {}
+
+  const handleDeleteClick = (id) => {
+    setClientListData(clientListData.filter((row) => row.id !== id));
+  }
+
+  const handleEditClick = () => {}
+
+  const handleSaveClick = () => {}
 
   const columns = [
     {
@@ -30,14 +39,13 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
       width: 150,
       editable: true,
       align: "left",
-
     },
     {
       field: "clientProject",
       headerName: "Client's Project",
       width: 130,
       editable: false,
-      align:"center"
+      align: "center",
     },
     {
       field: "clientEmail",
@@ -45,7 +53,7 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
       type: "email",
       width: 200,
       editable: false,
-      align:"left"
+      align: "left",
     },
     {
       field: "clientEarning",
@@ -53,7 +61,7 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 100,
-      align:"center"
+      align: "center",
     },
     {
       field: "actions",
@@ -71,27 +79,26 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
               sx={{
                 color: "primary.main",
               }}
-              onClick={handleSaveClick(id)}
+              onClick={()=>handleSaveClick(id)}
             />,
-            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={handleCancelClick(id)} color="inherit" />,
+            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={()=>handleCancelClick(id)} color="inherit" />,
           ]
         }
 
         return [
-          <GridActionsCellItem icon={<EditIcon />} label="Edit" className="textPrimary" onClick={handleEditClick(id)} color="inherit" />,
-          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(id)} color="inherit" />,
+          <GridActionsCellItem
+            id={"CList-Edit-" + data.id}
+            icon={<EditIcon />}
+            label="Edit"
+            className="textPrimary"
+            onClick={()=>handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem id={"CList-Del-" + data.id} icon={<DeleteIcon />} label="Delete" onClick={()=>handleDeleteClick(id)} color="inherit" />,
         ]
       },
     },
   ]
-
-  const handleCancelClick = () => {}
-
-  const handleDeleteClick = () => {}
-
-  const handleEditClick = () => {}
-
-  const handleSaveClick = () => {}
 
   return (
     <div>

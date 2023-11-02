@@ -1,12 +1,12 @@
 import { DataGrid, GridActionsCell, GridRowModes, GridActionsCellItem, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
-import { Box, Modal} from "@mui/material"
+import { Box, Modal } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 
-export default function ProjectListModal({projectListModal,closeProjectListModal,openProjectModal}) {
+export default function ProjectListModal({ projectListModal, closeProjectListModal, openProjectModal }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -29,6 +29,16 @@ export default function ProjectListModal({projectListModal,closeProjectListModal
 
   const [projectListData, setProjectListData] = useState(rows)
 
+  const handleCancelClick = () => {}
+
+  const handleDeleteClick = (id) => {
+    setProjectListData(projectListData.filter((row) => row.id !== id))
+  }
+
+  const handleEditClick = () => {}
+
+  const handleSaveClick = () => {}
+
   const columns = [
     { field: "id", headerName: "Project ID", width: 90 },
     {
@@ -42,7 +52,7 @@ export default function ProjectListModal({projectListModal,closeProjectListModal
       headerName: "Project Hours",
       width: 100,
       editable: false,
-      align:"center",
+      align: "center",
     },
     {
       field: "projectCost",
@@ -50,7 +60,7 @@ export default function ProjectListModal({projectListModal,closeProjectListModal
       type: "number",
       width: 100,
       editable: false,
-      align:"center",
+      align: "center",
     },
     {
       field: "clientName",
@@ -75,27 +85,19 @@ export default function ProjectListModal({projectListModal,closeProjectListModal
               sx={{
                 color: "primary.main",
               }}
-              onClick={handleSaveClick(id)}
+              onClick={()=>handleSaveClick(id)}
             />,
-            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={handleCancelClick(id)} color="inherit" />,
+            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={()=>handleCancelClick(id)} color="inherit" />,
           ]
         }
 
         return [
-          <GridActionsCellItem icon={<EditIcon />} label="Edit" className="textPrimary" onClick={handleEditClick(id)} color="inherit" />,
-          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(id)} color="inherit" />,
+          <GridActionsCellItem icon={<EditIcon />} label="Edit" className="textPrimary" onClick={()=>handleEditClick(id)} color="inherit" />,
+          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={()=>handleDeleteClick(id)} color="inherit" />,
         ]
       },
     },
   ]
-
-  const handleCancelClick = () => {}
-
-  const handleDeleteClick = () => {}
-
-  const handleEditClick = () => {}
-
-  const handleSaveClick = () => {}
 
   return (
     <div>

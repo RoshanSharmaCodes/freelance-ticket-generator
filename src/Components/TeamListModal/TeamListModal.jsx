@@ -29,6 +29,16 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
 
   const [teamListData, setTeamListData] = useState(rows)
 
+  const handleCancelClick = () => {}
+
+  const handleDeleteClick = (id) => {
+    setTeamListData(teamListData.filter((row) => row.id !== id));
+  }
+
+  const handleEditClick = () => {}
+
+  const handleSaveClick = () => {}
+
   const columns = [
     {
       field: "teamMemberName",
@@ -66,27 +76,21 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
               sx={{
                 color: "primary.main",
               }}
-              onClick={handleSaveClick(id)}
+              onClick={()=>handleSaveClick(id)}
             />,
-            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={handleCancelClick(id)} color="inherit" />,
+            <GridActionsCellItem icon={<CancelIcon />} label="Cancel" className="textPrimary" onClick={()=>handleCancelClick(id)} color="inherit" />,
           ]
         }
 
         return [
-          <GridActionsCellItem icon={<EditIcon />} label="Edit" className="textPrimary" onClick={handleEditClick(id)} color="inherit" />,
-          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={handleDeleteClick(id)} color="inherit" />,
+          <GridActionsCellItem icon={<EditIcon />} label="Edit" className="textPrimary" onClick={()=>handleEditClick(id)} color="inherit" />,
+          <GridActionsCellItem icon={<DeleteIcon />} label="Delete" onClick={()=>handleDeleteClick(id)} color="inherit" />,
         ]
       },
     },
   ]
 
-  const handleCancelClick = () => {}
 
-  const handleDeleteClick = () => {}
-
-  const handleEditClick = () => {}
-
-  const handleSaveClick = () => {}
 
   return (
     <div>
