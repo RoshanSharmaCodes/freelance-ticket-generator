@@ -6,6 +6,8 @@ var TaskCardData = [
         taskCreatedOn: "12/12/2023",
         taskStatus: "WIP",
         taskAssignedTo: "Sugam",
+        taskDuration:"4",
+        taskPerHourCost:"20"
     },
     {
         taskId:2,
@@ -14,6 +16,8 @@ var TaskCardData = [
         taskCreatedOn: "10/12/2023",
         taskStatus: "Done",
         taskAssignedTo: "Vikas",
+        taskDuration:"6",
+        taskPerHourCost:"80"
     },
     {
         taskId:3,
@@ -22,6 +26,8 @@ var TaskCardData = [
         taskCreatedOn: "10/10/2023",
         taskStatus: "Not Started",
         taskAssignedTo: "Raj",
+        taskDuration:"4",
+        taskPerHourCost:"50"
     },
 ]
 

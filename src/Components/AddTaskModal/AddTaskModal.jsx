@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form"
 import { Box, Button, InputLabel, TextField, MenuItem, Modal, Select } from "@mui/material"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { useState } from "react"
+import dayjs from "dayjs"
 
-export default function AddTaskModal({taskModal,closeTaskModal}) {
-  const [taskStatus, setTaskStatus] = useState("Not Started")
+export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, data}) {
+
+  const [taskStatus, setTaskStatus] = useState(prefillMode?data.taskStatus:"Not Started")
   const TaskForm = useForm({
     defaultValues: {
       taskNameInp: "",
@@ -52,14 +54,16 @@ export default function AddTaskModal({taskModal,closeTaskModal}) {
             {...taskRegister("taskNameInp", { required: "Please enter task name" })}
             error={!!errors.taskNameInp}
             helperText={errors.taskNameInp?.message}
+            value={prefillMode?data.taskName:""}
           />
 
           <InputLabel htmlFor="project-start-date">Task Start Date</InputLabel>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
             <DatePicker
               {...taskRegister("taskStartDateInp", { required: "Please enter start date" })}
               error={!!errors.taskStartDateInp}
               helperText={errors.taskStartDateInp?.message}
+              defaultValue={prefillMode?dayjs("12-11-2023","DD-MM-YYYY"):dayjs(new Date())}
             />
           </LocalizationProvider>
 
@@ -69,6 +73,7 @@ export default function AddTaskModal({taskModal,closeTaskModal}) {
             {...taskRegister("taskDescInp", { required: "Please enter task description" })}
             error={!!errors.taskDescInp}
             helperText={errors.taskDescInp?.message}
+            value={prefillMode?data.taskDescription:""}
           />
 
           <InputLabel htmlFor="project-name-input">No. of Hours Required</InputLabel>
@@ -77,6 +82,7 @@ export default function AddTaskModal({taskModal,closeTaskModal}) {
             {...taskRegister("taskHoursInp", { required: "Please enter no of hours required" })}
             error={!!errors.taskHoursInp}
             helperText={errors.taskHoursInp?.message}
+            value={prefillMode?data.taskDuration:""}
           />
 
           <InputLabel htmlFor="project-name-input">Cost Per Hour</InputLabel>
@@ -85,6 +91,7 @@ export default function AddTaskModal({taskModal,closeTaskModal}) {
             {...taskRegister("taskCostInp", { required: "Please enter cost per hour" })}
             error={!!errors.taskCostInp}
             helperText={errors.taskCostInp?.message}
+            value={prefillMode?data.taskPerHourCost:""}
           />
 
           <InputLabel id="demo-simple-select-label">Task Status</InputLabel>
@@ -94,9 +101,7 @@ export default function AddTaskModal({taskModal,closeTaskModal}) {
             <MenuItem value={"Done"}>Done</MenuItem>
             <MenuItem value={"Problem Occured"}>Pending</MenuItem>
           </Select>
-          <Button type="submit" variant="contained">
-            Add Task
-          </Button>
+          <Button type="submit" variant="contained">{prefillMode?"Update Task":"Add Task"}</Button>
         </Box>
       </form>
     </Modal>

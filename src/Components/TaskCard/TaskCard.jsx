@@ -9,11 +9,17 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import Menu from "@mui/material/Menu"
 import Select from "@mui/material/Select"
+import AddTaskModal from "../AddTaskModal/AddTaskModal"
 
-export default function TaskCard({data,handleTaskDelete}) {
+export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
   const [taskStatus, setTaskStatus] = useState(data.taskStatus)
   const [assignee, setAssignee] = useState(data.taskAssignedTo)
   const [anchorEl, setAnchorEl] = useState(null)
+  const [prefillTaskModal, setPrefillTaskModal] = useState(false)
+
+  const closePrefillTaskModal = () => {
+    setPrefillTaskModal(false)
+  }
 
   const handleTaskStatusChange = (e) => {
     setTaskStatus(e.target.value)
@@ -30,9 +36,13 @@ export default function TaskCard({data,handleTaskDelete}) {
     setAnchorEl(null)
   }
 
-  const handleEditTaskCard = () => {}
+  const handleEditTaskCard = (e) => {
+    setAnchorEl(null)
+    setPrefillTaskModal(true)
+  }
 
   const handleDeleteTaskCard = (e) => {
+    setAnchorEl(null)
     handleTaskDelete(e.target.id)
   }
 
@@ -92,6 +102,9 @@ export default function TaskCard({data,handleTaskDelete}) {
         <MenuItem id={data.taskId} onClick={handleEditTaskCard}>Edit</MenuItem>
         <MenuItem id={data.taskId} onClick={handleDeleteTaskCard}>Delete</MenuItem>
       </Menu>
+
+      {/* Open Prefill Task Modal */}
+      <AddTaskModal taskModal={prefillTaskModal} closeTaskModal={closePrefillTaskModal} prefillMode={true} data={data}/>
     </div>
   )
 }

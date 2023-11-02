@@ -20,7 +20,7 @@ export default function TaskBoard() {
   }
 
   const handleTaskEdit = (id) => {
-
+    setTaskModal(true)
   }
 
   const handleTaskDelete = (id) => {
@@ -33,7 +33,7 @@ export default function TaskBoard() {
       <Appbar />
       <div className="taskboardMain">
         {taskData.map((data) => (
-          <TaskCard data={data} handleTaskDelete={handleTaskDelete} />
+          <TaskCard data={data} handleTaskDelete={handleTaskDelete} handleTaskEdit={handleTaskEdit}/>
         ))}
       </div>
 
@@ -42,7 +42,8 @@ export default function TaskBoard() {
       </Fab>
 
       {/* Add Task Modal */}
-      <AddTaskModal taskModal={taskModal} closeTaskModal={closeTaskModal} />
+      <AddTaskModal taskModal={taskModal} closeTaskModal={closeTaskModal} prefillMode={false}/>
+          
     </div>
   )
 }
