@@ -5,9 +5,11 @@ import AddIcon from "@mui/icons-material/Add"
 import Appbar from "../Appbar/Appbar"
 import TaskCard from "../../Components/TaskCard/TaskCard"
 import AddTaskModal from "../../Components/AddTaskModal/AddTaskModal"
+import { TaskCardData } from "../../JSON/FakeData"
 
 export default function TaskBoard() {
   const [taskModal, setTaskModal] = useState(false)
+  var [taskData, setTaskData] = useState(TaskCardData)
 
   const openTaskModal = () => {
     setTaskModal(true)
@@ -17,23 +19,22 @@ export default function TaskBoard() {
     setTaskModal(false)
   }
 
+  const handleTaskEdit = (id) => {
+
+  }
+
+  const handleTaskDelete = (id) => {
+    taskData = taskData.filter((data) => data.taskId != id)
+    setTaskData(taskData)
+  }
+
   return (
     <div className="taskboardContainer">
       <Appbar />
       <div className="taskboardMain">
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
-        <TaskCard />
+        {taskData.map((data) => (
+          <TaskCard data={data} handleTaskDelete={handleTaskDelete} />
+        ))}
       </div>
 
       <Fab color="primary" aria-label="add" sx={{ position: "fixed", right: 30, bottom: 30 }} onClick={openTaskModal}>

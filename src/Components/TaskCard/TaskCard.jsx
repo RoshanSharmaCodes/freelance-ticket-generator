@@ -10,10 +10,9 @@ import MenuItem from "@mui/material/MenuItem"
 import Menu from "@mui/material/Menu"
 import Select from "@mui/material/Select"
 
-export default function TaskCard() {
-  const [taskStatus, setTaskStatus] = useState("Not Started")
-  const [assignee, setAssignee] = useState("Sugam")
-
+export default function TaskCard({data,handleTaskDelete}) {
+  const [taskStatus, setTaskStatus] = useState(data.taskStatus)
+  const [assignee, setAssignee] = useState(data.taskAssignedTo)
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleTaskStatusChange = (e) => {
@@ -24,7 +23,6 @@ export default function TaskCard() {
     setAssignee(e.target.value)
   }
   const openTaskCardMenu = (event) => {
-    console.log("HEllo")
     setAnchorEl(event.currentTarget)
   }
 
@@ -34,15 +32,17 @@ export default function TaskCard() {
 
   const handleEditTaskCard = () => {}
 
-  const handleDeleteTaskCard = () => {}
+  const handleDeleteTaskCard = (e) => {
+    handleTaskDelete(e.target.id)
+  }
 
   return (
     <div>
       <Card sx={{ height: 260, width: 300 }}>
         <CardHeader
           sx={{ fontSize: 15, backgroundColor: "#e0e0e0" }}
-          title={"Dashboard UI"}
-          subheader={"Created On: 12/04/2023"}
+          title={data.taskName}
+          subheader={"Created On: "+ data.taskCreatedOn}
           action={
             <IconButton
               onClick={openTaskCardMenu}
@@ -56,7 +56,7 @@ export default function TaskCard() {
           }
         />
         <CardContent>
-          <div className="taskDescription">Will have to create a Dashboard to show all tasks</div>
+          <div className="taskDescription">{data.taskDescription}</div>
           <div className="dropdownSection">
             <div>
               <InputLabel id="demo-simple-select-label">Assigned To:</InputLabel>
@@ -89,8 +89,8 @@ export default function TaskCard() {
           "aria-labelledby": "task-menu-button",
         }}
       >
-        <MenuItem onClick={handleEditTaskCard}>Edit</MenuItem>
-        <MenuItem onClick={handleDeleteTaskCard}>Delete</MenuItem>
+        <MenuItem id={data.taskId} onClick={handleEditTaskCard}>Edit</MenuItem>
+        <MenuItem id={data.taskId} onClick={handleDeleteTaskCard}>Delete</MenuItem>
       </Menu>
     </div>
   )
