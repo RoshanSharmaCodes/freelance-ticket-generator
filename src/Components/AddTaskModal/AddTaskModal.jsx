@@ -8,6 +8,7 @@ import dayjs from "dayjs"
 
 export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, data}) {
 
+  console.log("Task Modal Data: ",data)
   const [taskStatus, setTaskStatus] = useState(prefillMode?data.taskStatus:"Not Started")
   const TaskForm = useForm({
     defaultValues: {
@@ -26,8 +27,8 @@ export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, da
   const handleStatusChange = (e) => {
     setTaskStatus(e.target.value)
   }
-  const taskCreateSubmit = () => {
-    console.log("Task Created")
+  const taskCreateSubmit = (data) => {
+    console.log("Task Created",data.taskNameInp)
   }
   const projectModalStyle = {
     position: "absolute",
@@ -51,6 +52,7 @@ export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, da
           <InputLabel htmlFor="project-name-input">Task Name</InputLabel>
           <TextField
             id="project-name-input"
+            name="taskNameInp"
             {...taskRegister("taskNameInp", { required: "Please enter task name" })}
             error={!!errors.taskNameInp}
             helperText={errors.taskNameInp?.message}
@@ -63,7 +65,7 @@ export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, da
               {...taskRegister("taskStartDateInp", { required: "Please enter start date" })}
               error={!!errors.taskStartDateInp}
               helperText={errors.taskStartDateInp?.message}
-              defaultValue={prefillMode?dayjs("12-11-2023","DD-MM-YYYY"):dayjs(new Date())}
+              value={prefillMode?dayjs("12-11-2023","DD-MM-YYYY"):dayjs(new Date())}
             />
           </LocalizationProvider>
 

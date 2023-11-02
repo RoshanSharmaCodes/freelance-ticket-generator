@@ -6,7 +6,7 @@ import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 
-export default function ClientListModal({clientListModal,closeClientListModal,openClientListModal}) {
+export default function ClientListModal({clientListModal,closeClientListModal,openClientListModal,data}) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,14 +20,8 @@ export default function ClientListModal({clientListModal,closeClientListModal,op
     maxWidth: "800px",
   }
 
-  const rows = [
-    { id: 1, clientName: "Snow", clientProject: "Project 1", clientEmail: "abc@gmail.com", clientEarning: 35 },
-    { id: 2, clientName: "Lannister", clientProject: "Project 2", clientEmail: "abc@gmail.com", clientEarning: 42 },
-    { id: 3, clientName: "Lannister", clientProject: "Project 3", clientEmail: "abc@gmail.com", clientEarning: 45 },
-    { id: 4, clientName: "Stark", clientProject: "Project 4", clientEmail: "abc@gmail.com", clientEarning: 16 },
-  ]
 
-  const [clientListData, setClientListData] = useState(rows)
+  const [clientListData, setClientListData] = useState(data)
 
   const columns = [
     {

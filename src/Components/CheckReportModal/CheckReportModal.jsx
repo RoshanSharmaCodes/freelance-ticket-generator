@@ -14,10 +14,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
-  Toolbar,
 } from "@mui/material"
-import { useForm } from "react-hook-form"
+
 
 export default function CheckReportModal({ analyticModal, closeAnalyticModal, data }) {
   const style = {
@@ -50,20 +48,20 @@ export default function CheckReportModal({ analyticModal, closeAnalyticModal, da
               {data.map((row) => (
                 <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.taskName}
                   </TableCell>
-                  <TableCell align="center">{row.calories}</TableCell>
-                  <TableCell align="center">{row.fat}</TableCell>
-                  <TableCell align="center">{row.carbs}</TableCell>
+                  <TableCell align="center">{row.taskStatus}</TableCell>
+                  <TableCell align="center">{row.taskDuration}</TableCell>
+                  <TableCell align="center">{row.taskPerHourCost}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
         <div className="totalAnalyticsDiv">
-          <InputLabel htmlFor="project-total-task">Total Tasks :</InputLabel>
-          <InputLabel htmlFor="project-total-hours">Total Hours :</InputLabel>
-          <InputLabel htmlFor="project-name-input">Total Cost :</InputLabel>
+          <InputLabel htmlFor="project-total-task">Total Tasks : <b>{data.length}</b></InputLabel>
+          <InputLabel htmlFor="project-total-hours">Total Hours : <b>{data.reduce((total, task) => total + parseInt(task.taskDuration), 0)}H</b></InputLabel>
+          <InputLabel htmlFor="project-name-input">Total Cost : <b> ${data.reduce((total, task) => total + parseInt(task.taskPerHourCost), 0)}</b></InputLabel>
         </div>
       </Box>
     </Modal>

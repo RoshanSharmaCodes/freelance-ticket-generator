@@ -7,6 +7,7 @@ import Edit from "@mui/icons-material/Edit"
 import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
+import { clientList } from "../../JSON/FakeData"
 
 export default function Sidebar() {
   
@@ -158,7 +159,7 @@ export default function Sidebar() {
       <AddProjectModal projectModal={projectModal} closeProjectModal={closeProjectModal} />
 
       {/* Clients List */}
-      <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal} />
+      <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal} data={clientList}/>
 
       {/* Project List */}
       <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} />

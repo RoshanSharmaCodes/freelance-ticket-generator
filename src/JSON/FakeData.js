@@ -1,3 +1,27 @@
+var clientList = [
+    {
+        id: 1,
+        clientName: "Roshan",
+        clientEmail:"roshan@gmail.com",
+        clientProject: [],
+        clientEarning:"340",
+    },
+    {
+        id: 2,
+        clientName: "Vikas",
+        clientEmail:"vikas@gmail.com",
+        clientProject: [],
+        clientEarning:"1500",
+    },
+    {
+        id: 3,
+        clientName: "Raj",
+        clientEmail:"raj@gmail.com",
+        clientProject: [],
+        clientEarning:"1700",
+    },
+]
+
 var TaskCardData = [
     {
         taskId:1,
@@ -31,4 +55,4 @@ var TaskCardData = [
     },
 ]
 
-module.exports = {TaskCardData}
+module.exports = {TaskCardData,clientList}

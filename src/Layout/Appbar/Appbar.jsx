@@ -5,6 +5,7 @@ import { AppBar, Button, Toolbar } from "@mui/material"
 import AddTeamModal from "../../Components/AddTeamModal/AddTeamModal"
 import SendReportModal from "../../Components/SendReportModal/SendReportModal"
 import CheckReportModal from "../../Components/CheckReportModal/CheckReportModal"
+import { TaskCardData } from "../../JSON/FakeData"
 
 export default function Appbar() {
   const [analyticModal, setAnalyticModal] = useState(false)
@@ -34,18 +35,6 @@ export default function Appbar() {
   const closeSendReportModal = () => {
     setSendReportModal(false)
   }
-
-  function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein }
-  }
-
-  const rows = [
-    createData("Creating Layout", "Done", 6.0, 24),
-    createData("Login Form", "WIP", 9.0, 37),
-    createData("Registration Form", "Done", 16.0, 24),
-    createData("State Management", "Done", 3.7, 67),
-    createData("Creating Modal", "Done", 16.0, 49),
-  ]
 
   return (
     <div className="appbarContainer">
@@ -80,7 +69,7 @@ export default function Appbar() {
       </AppBar>
 
       {/* Check Report */}
-      <CheckReportModal data={rows} analyticModal={analyticModal} closeAnalyticModal={closeAnalyticModal} />
+      <CheckReportModal data={TaskCardData} analyticModal={analyticModal} closeAnalyticModal={closeAnalyticModal} />
 
       {/* Send Report */}
       <SendReportModal sendReportModal={sendReportModal} closeSendReportModal={closeSendReportModal} />
