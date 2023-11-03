@@ -6,6 +6,7 @@ import AddTeamModal from "../../Components/AddTeamModal/AddTeamModal"
 import SendReportModal from "../../Components/SendReportModal/SendReportModal"
 import CheckReportModal from "../../Components/CheckReportModal/CheckReportModal"
 import { TaskCardData } from "../../JSON/FakeData"
+import { saveAs } from "file-saver"
 
 export default function Appbar() {
   const [analyticModal, setAnalyticModal] = useState(false)
@@ -36,8 +37,23 @@ export default function Appbar() {
     setSendReportModal(false)
   }
 
-  const downloadReport = () => {
-    
+  const downloadReport = async () => {
+    const createReport = await fetch("http://localhost:5000/createReport", {
+      method: "POST", // Use the POST method
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    const getReport = await fetch("http://localhost:5000/getReport", {
+      method: "GET", // Use the POST method
+      headers: {
+        "Content-Type": "application/json",
+      },
+      responseType: "blob"
+    })
+    const pdfBlob = new Blob([getReport.data], {type:"application/pdf"})
+    saveAs(pdfBlob,"Report.pdf")
   }
 
   return (
@@ -59,7 +75,11 @@ export default function Appbar() {
           >
             Send Report
           </Button>
-          <Button onClick={downloadReport} variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}>
+          <Button
+            onClick={downloadReport}
+            variant="outlined"
+            style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}
+          >
             Download Report
           </Button>
           <Button

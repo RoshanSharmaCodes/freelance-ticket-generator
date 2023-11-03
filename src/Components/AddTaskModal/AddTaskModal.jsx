@@ -8,7 +8,6 @@ import dayjs from "dayjs"
 
 export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, data}) {
 
-  console.log("Task Modal Data: ",data)
   const [taskStatus, setTaskStatus] = useState(prefillMode?data.taskStatus:"Not Started")
   const TaskForm = useForm({
     defaultValues: {
