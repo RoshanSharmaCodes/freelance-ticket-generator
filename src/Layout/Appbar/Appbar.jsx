@@ -36,6 +36,10 @@ export default function Appbar() {
     setSendReportModal(false)
   }
 
+  const downloadReport = () => {
+    
+  }
+
   return (
     <div className="appbarContainer">
       <AppBar style={{ position: "fixed", width: "100%", maxWidth: 1092, right: 50, top: 30, borderRadius: 10 }}>
@@ -55,7 +59,7 @@ export default function Appbar() {
           >
             Send Report
           </Button>
-          <Button variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}>
+          <Button onClick={downloadReport} variant="outlined" style={{ width: 190, height: 50, color: "white", borderColor: "white", marginRight: "10px" }}>
             Download Report
           </Button>
           <Button

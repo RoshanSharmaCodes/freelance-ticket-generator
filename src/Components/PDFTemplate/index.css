@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+  font-family: arial, sans-serif;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+table.statsTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 30%;
+    margin: 20px 0px;
+}
+
+table.statsTable th:nth-of-type(even){
+    font-size: 15px;
+    text-align: center;
+    font-weight: 100;
+}
+.reportContainer {
+  width: 900px;
+  height: 100vh;
+  background-color: white;
+  padding: 20px;
+}
+
+.reportHeader{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.reportInfo{
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    height: 120px;
+}
+
+.reportInfo span{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.reportInfo label{
+    font-size: 18px;
+    font-weight: 200;
+}
+
+.reportLeftInfo{
+    flex:7;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: space-around;
+}
+
+.reportRightInfo{
+    flex:4;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: space-around;
+    height: 70px;
+}
