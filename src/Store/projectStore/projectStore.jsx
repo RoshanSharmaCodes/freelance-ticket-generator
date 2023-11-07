@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [{id:1, clientName:"Roshan", clientEmail:"abc@gmail.com"}]
+const initialState = [{id:1, projectName:"Project 51", clientName:"Roshan"},{id:2, projectName:"Project 56", clientName:"Vikas"}]
 
 const projectSlice = createSlice({
     name:"projectStore",

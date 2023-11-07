@@ -20,6 +20,7 @@ export default function Sidebar() {
   const [teamListModal, setTeamListModal] = useState(false)
   const [imageUrl, setImageUrl] = useState(null);
   const clientList = useSelector(state => state.clientStore)
+  const projectList = useSelector(state => state.projectStore)
 
   const openContactModal = () => {
     setContactModal(true)
@@ -107,14 +108,14 @@ export default function Sidebar() {
           <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
-            value={projectName}
+            value={projectList[0].projectName??""}
             label="Project Name"
             style={{ minWidth: 200 }}
             onChange={(e) => handleProjectChange(e)}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                {name}
+            {projectList.map((data) => (
+              <MenuItem key={data.projectName} value={data.projectName}>
+                {data.projectName}
               </MenuItem>
             ))}
           </Select>
@@ -163,7 +164,7 @@ export default function Sidebar() {
       <ClientListModal clientListModal={clientListModal} closeClientListModal={closeClientListModal} data={clientList}/>
 
       {/* Project List */}
-      <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} />
+      <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} data={projectList}/>
 
       {/* Team List */}
       <TeamListModal TeamListModal={teamListModal} openTeamModal={openTeamListModal} closeTeamListModal={closeTeamListModal} />

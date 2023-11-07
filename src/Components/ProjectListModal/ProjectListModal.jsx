@@ -6,7 +6,7 @@ import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 
-export default function ProjectListModal({ projectListModal, closeProjectListModal, openProjectModal }) {
+export default function ProjectListModal({ projectListModal, closeProjectListModal, openProjectModal, data }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,14 +20,14 @@ export default function ProjectListModal({ projectListModal, closeProjectListMod
     maxWidth: "800px",
   }
 
-  const rows = [
-    { id: 1, projectName: "Snow", clientName: "Jon", projectCost: 20, projectHours: 35 },
-    { id: 2, projectName: "Lannister", clientName: "Cersei", projectCost: 20, projectHours: 42 },
-    { id: 3, projectName: "Lannister", clientName: "Jaime", projectCost: 20, projectHours: 45 },
-    { id: 4, projectName: "Stark", clientName: "Arya", projectCost: 20, projectHours: 16 },
-  ]
+  // const rows = [
+  //   { id: 1, projectName: "Snow", clientName: "Jon", projectCost: 20, projectHours: 35 },
+  //   { id: 2, projectName: "Lannister", clientName: "Cersei", projectCost: 20, projectHours: 42 },
+  //   { id: 3, projectName: "Lannister", clientName: "Jaime", projectCost: 20, projectHours: 45 },
+  //   { id: 4, projectName: "Stark", clientName: "Arya", projectCost: 20, projectHours: 16 },
+  // ]
 
-  const [projectListData, setProjectListData] = useState(rows)
+  const [projectListData, setProjectListData] = useState(data)
 
   const handleCancelClick = () => {}
 
