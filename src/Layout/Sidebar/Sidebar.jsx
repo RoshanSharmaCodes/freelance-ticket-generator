@@ -7,7 +7,7 @@ import Edit from "@mui/icons-material/Edit"
 import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
-import { clientList } from "../../JSON/FakeData"
+import { useSelector } from "react-redux"
 
 export default function Sidebar() {
   
@@ -19,6 +19,7 @@ export default function Sidebar() {
   const [projectListModal, setProjectListModal] = useState(false)
   const [teamListModal, setTeamListModal] = useState(false)
   const [imageUrl, setImageUrl] = useState(null);
+  const clientList = useSelector(state => state.clientStore)
 
   const openContactModal = () => {
     setContactModal(true)

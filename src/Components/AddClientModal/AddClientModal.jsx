@@ -1,19 +1,27 @@
 import React from 'react'
 import { InputLabel, Box, Button, Modal, TextField } from "@mui/material"
 import { useForm } from "react-hook-form"
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addClient } from '../../Store/clientStore/clientStore'
 export default function AddClientModal({contactModal, closeContactModal}) {
     
+  const clientList = useSelector(state => state.clientStore)
     const clientsForm = useForm({
         defaultValues: {
-          name: "",
-          email: "",
+          id: clientList.length + 1,
+          clientName: "",
+          clientEmail: "",
         },
       })
     const { register: clientRegister, handleSubmit: handleClientSubmit, formState: clientFormState } = clientsForm
     const { errors } = clientFormState
+    const clientDispatch = useDispatch()
     
-    const submitClientsForm = (data) => {}
+    const submitClientsForm = (data) => {
+      console.log("Client Added",data)
+      clientDispatch(addClient(data))
+      closeContactModal()
+    }
 
     const clientModalStyle = {
         position: "absolute",
@@ -38,18 +46,18 @@ export default function AddClientModal({contactModal, closeContactModal}) {
       <Box sx={clientModalStyle}>
         <InputLabel htmlFor="project-name-input">Client's Name</InputLabel>
         <TextField
-          id="name"
-          {...clientRegister("name", { required: "Please enter client's name" })}
+          id="clientName"
+          {...clientRegister("clientName", { required: "Please enter client's name" })}
           error={!!errors.projectName}
-          helperText={errors.name?.message}
+          helperText={errors.clientName?.message}
         />
         <InputLabel htmlFor="project-name-input">Client's Email</InputLabel>
         <TextField
-          type="email"
-          id="email"
-          {...clientRegister("email", { required: "Please enter Email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          type="clientEmail"
+          id="clientEmail"
+          {...clientRegister("clientEmail", { required: "Please enter Email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
+          error={!!errors.clientEmail}
+          helperText={errors.clientEmail?.message}
         />
         <Button type="submit" variant="contained">
           Add Client

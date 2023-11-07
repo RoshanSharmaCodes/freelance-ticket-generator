@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 export default function ClientListModal({ clientListModal, closeClientListModal, openClientListModal, data }) {
   const style = {
@@ -21,6 +21,7 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
   }
 
   const [clientListData, setClientListData] = useState(data)
+  console.log("Client Data ",clientListData)
 
   const handleCancelClick = () => {}
 
@@ -99,6 +100,11 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
       },
     },
   ]
+
+
+  useEffect(()=>{
+    
+  })
 
   return (
     <div>
