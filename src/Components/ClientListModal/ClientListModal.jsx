@@ -21,7 +21,6 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
   }
 
   const [clientListData, setClientListData] = useState(data)
-  console.log("Client Data ",clientListData)
 
   const handleCancelClick = () => {}
 

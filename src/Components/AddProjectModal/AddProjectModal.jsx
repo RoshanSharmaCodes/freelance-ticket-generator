@@ -4,12 +4,17 @@ import { DatePicker } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from 'react-redux'
+import { addProject } from "../../Store/projectStore/projectStore"
 
 export default function AddProjectModal({projectModal,closeProjectModal}) {
 
-    
+  const projectList = useSelector(state => state.projectStore)
+  const dispatch = useDispatch()
+  
   const projectsForm = useForm({
     defaultValues: {
+      id: projectList.length + 1,
       projectNameInp: "",
       projectStartDateInp: "",
       clientsNameInp: "",
@@ -20,7 +25,9 @@ export default function AddProjectModal({projectModal,closeProjectModal}) {
   const { register: projectRegister, handleSubmit: handleProjectSubmit, formState: projectFormState } = projectsForm
   const { errors: projectError } = projectFormState
   const submitProjectForm = (data) => {
-    console.log(data)
+    console.log("Project Data Submit",data)
+    dispatch(addProject(data))
+    closeProjectModal()
   }
   
   const projectModalStyle = {
