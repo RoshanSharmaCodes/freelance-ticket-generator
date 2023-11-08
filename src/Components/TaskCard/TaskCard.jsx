@@ -17,6 +17,8 @@ export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [prefillTaskModal, setPrefillTaskModal] = useState(false)
 
+  let headerColor = taskStatus === "WIP"? "#ffc830" : taskStatus === "Done"? "#66ff47": taskStatus === "Not Started"? "lightblue": "#ff6e42";
+
   const closePrefillTaskModal = () => {
     setPrefillTaskModal(false)
   }
@@ -50,7 +52,7 @@ export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
     <div>
       <Card sx={{ height: 260, width: 300 }}>
         <CardHeader
-          sx={{ fontSize: 15, backgroundColor: "#e0e0e0" }}
+          sx={{ fontSize: 15, backgroundColor: headerColor}}
           title={data.taskName.length> 25?data.taskName.slice(0,19)+"...":data.taskName}
           subheader={"Created On: "+ data.taskCreatedOn}
           action={
