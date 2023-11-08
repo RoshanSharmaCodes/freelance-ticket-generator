@@ -2,23 +2,31 @@ import React from "react"
 import { Box, Button, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { addTeam } from "../../Store/teamStore/teamStore"
+import { useDispatch } from "react-redux"
 
 export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
   const [addTeamAccess, setAddTeamAccess] = useState("Viewer")
-  const sendReportForm = useForm({
+  const dispatch = useDispatch()
+  const addTeamForm = useForm({
     defaultValues: {
-      senderName: "",
-      senderMessage: "",
+      teamMemberEmail: "",
+      teamMemberName: "",
+      teamMemberRole: "",
     },
   })
-  const { register: sendReportRegister, handleSubmit: handleSendReport, formState: sendReportFormState } = sendReportForm
-  const { errors } = sendReportFormState
+  const { register: addTeamRegister, handleSubmit: handleAddTeam, formState: addTeamFormState } = addTeamForm
+  const { errors } = addTeamFormState
 
   const handleAccessChange = (e) => {
     setAddTeamAccess(e.target.value)
   }
 
-  const sendInviteRequrest = () => {}
+  const sendInviteRequrest = (data) => {
+    dispatch(addTeam(data))
+    console.log("Add Team", data)
+    closeAddTeamModal()
+  }
 
   const addTeamModalStyle = {
     position: "absolute",
@@ -31,27 +39,37 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
     p: 2,
     display: "flex",
     flexDirection: "column",
-    height: "250px",
+    height: "350px",
     justifyContent: "space-evenly",
   }
 
   return (
     <Modal open={addTeamModal} onClose={closeAddTeamModal}>
-      <form onSubmit={handleSendReport(sendInviteRequrest)}>
+      <form onSubmit={handleAddTeam(sendInviteRequrest)}>
         <Box sx={addTeamModalStyle}>
           <InputLabel>Grant Access As:</InputLabel>
-          <Select onChange={handleAccessChange} value={addTeamAccess}>
+          <Select onChange={handleAccessChange}  {...addTeamRegister("teamMemberRole", { required: "Please enter role" })}
+            error={!!errors.teamMemberRole}
+            helperText={errors.teamMemberRole?.message} value={addTeamAccess}>
             <MenuItem value={"Admin"}>Admin</MenuItem>
             <MenuItem value={"Editor"}>Editor</MenuItem>
             <MenuItem value={"Viewer"}>Viewer</MenuItem>
           </Select>
+          <InputLabel htmlFor="project-name-input">Name:</InputLabel>
+          <TextField
+            id="outlined-multiline-static"
+            type="text"
+            {...addTeamRegister("teamMemberName", { required: "Please enter name" })}
+            error={!!errors.teamMemberName}
+            helperText={errors.teamMemberName?.message}
+          />
           <InputLabel htmlFor="project-name-input">Email:</InputLabel>
           <TextField
             id="outlined-multiline-static"
             type="email"
-            {...sendReportRegister("senderMessage", { required: "Please enter your message" })}
-            error={!!errors.senderMessage}
-            helperText={errors.senderMessage?.message}
+            {...addTeamRegister("teamMemberEmail", { required: "Please enter email" })}
+            error={!!errors.teamMemberEmail}
+            helperText={errors.teamMemberEmail?.message}
           />
           <Button type="submit" variant="contained">
             Send Invite

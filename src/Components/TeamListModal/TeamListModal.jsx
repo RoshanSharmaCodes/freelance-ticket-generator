@@ -6,7 +6,7 @@ import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 
-export default function TeamListModal({TeamListModal,closeTeamListModal,openTeamModal}) {
+export default function TeamListModal({TeamListModal,closeTeamListModal,openTeamModal,data}) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -17,7 +17,7 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    maxWidth: "600px",
+    maxWidth: "700px",
   }
 
   const rows = [
@@ -27,7 +27,7 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     { id: 4, teamMemberName: "Stark Braddy", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Viewer" },
   ]
 
-  const [teamListData, setTeamListData] = useState(rows)
+  const [teamListData, setTeamListData] = useState(data)
 
   const handleCancelClick = () => {}
 
@@ -56,6 +56,13 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     {
         field: "teamMemberRole",
         headerName: "Role",
+        description: "This column has a value getter and is not sortable.",
+        sortable: false,
+        width: 100,
+      },
+      {
+        field: "teamMemberStatus",
+        headerName: "Status",
         description: "This column has a value getter and is not sortable.",
         sortable: false,
         width: 100,

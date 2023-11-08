@@ -7,20 +7,23 @@ import Edit from "@mui/icons-material/Edit"
 import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { changeActiveTask } from "../../Store/taskStore/taskStore"
 
 export default function Sidebar() {
   
-  var names = ["Project 1", "Project 2", "Project 3", "Project 4", "Project 5"]
-  const [projectName, setProjectName] = useState("Project 1")
+  const clientList = useSelector(state => state.clientStore)
+  const projectList = useSelector(state => state.projectStore)
+  const teamList = useSelector(state => state.teamStore)
+  const taskDispatch = useDispatch()
+  const [projectName, setProjectName] = useState(projectList[0].projectName)
   const [contactModal, setContactModal] = useState(false)
   const [projectModal, setProjectModal] = useState(false)
   const [clientListModal, setClientListModal] = useState(false)
   const [projectListModal, setProjectListModal] = useState(false)
   const [teamListModal, setTeamListModal] = useState(false)
   const [imageUrl, setImageUrl] = useState(null);
-  const clientList = useSelector(state => state.clientStore)
-  const projectList = useSelector(state => state.projectStore)
+  
 
   const openContactModal = () => {
     setContactModal(true)
@@ -63,6 +66,7 @@ export default function Sidebar() {
   }
   const handleProjectChange = (e) => {
     setProjectName(e.target.value)
+    taskDispatch(changeActiveTask(e.target.value))
   }
 
   const openProfilePicWindow = () => {
@@ -108,7 +112,7 @@ export default function Sidebar() {
           <Select
             labelId="demo-multiple-name-label"
             id="demo-multiple-name"
-            value={projectList[0].projectName??""}
+            value={projectName}
             label="Project Name"
             style={{ minWidth: 200 }}
             onChange={(e) => handleProjectChange(e)}
@@ -167,7 +171,7 @@ export default function Sidebar() {
       <ProjectListModal projectListModal={projectListModal} closeProjectListModal={closeProjectListModal} data={projectList}/>
 
       {/* Team List */}
-      <TeamListModal TeamListModal={teamListModal} openTeamModal={openTeamListModal} closeTeamListModal={closeTeamListModal} />
+      <TeamListModal TeamListModal={teamListModal} openTeamModal={openTeamListModal} closeTeamListModal={closeTeamListModal} data={teamList} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./TaskBoard.css"
 import { Fab } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add"
@@ -6,10 +6,16 @@ import Appbar from "../Appbar/Appbar"
 import TaskCard from "../../Components/TaskCard/TaskCard"
 import AddTaskModal from "../../Components/AddTaskModal/AddTaskModal"
 import { TaskCardData } from "../../JSON/FakeData"
+import { useSelector } from "react-redux"
 
 export default function TaskBoard() {
+  
+  const projectList = useSelector(state => state.projectStore)
+  console.log("Project Data : ",projectList[0].projectTasks)
+  const activeProject = useSelector(state => state.taskStore)
   const [taskModal, setTaskModal] = useState(false)
-  var [taskData, setTaskData] = useState(TaskCardData)
+  var [taskData, setTaskData] = useState(projectList[0].projectTasks)
+
 
   const openTaskModal = () => {
     setTaskModal(true)
@@ -24,14 +30,25 @@ export default function TaskBoard() {
   }
 
   const handleTaskDelete = (id) => {
-    taskData = taskData.filter((data) => data.taskId != id)
+    const taskData = taskData.filter((data) => data.taskId != id)
     setTaskData(taskData)
   }
+
+  useEffect(()=>{
+    const data = projectList.find((data) => data.projectName === activeProject["activeProject"])
+    console.log("UseEffect: "+ data.toString())
+    console.log("UseEffect Active Projeect",activeProject["activeProject"])
+    setTaskData(data.projectTasks)
+  },[activeProject])
+  
 
   return (
     <div className="taskboardContainer">
       <Appbar />
       <div className="taskboardMain">
+        {/* {taskData.map((data) => (
+          <TaskCard data={data} handleTaskDelete={handleTaskDelete} handleTaskEdit={handleTaskEdit}/>
+        ))} */}
         {taskData.map((data) => (
           <TaskCard data={data} handleTaskDelete={handleTaskDelete} handleTaskEdit={handleTaskEdit}/>
         ))}
