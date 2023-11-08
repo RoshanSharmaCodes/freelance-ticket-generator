@@ -1,23 +1,15 @@
-import React from "react"
+import React, {useState, useEffect } from "react"
 import Paper from "@mui/material/Paper"
-import {
-  AppBar,
-  Box,
-  Button,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material"
+import { Box, InputLabel, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, } from "@mui/material"
+import { useSelector } from "react-redux"
 
 
-export default function CheckReportModal({ analyticModal, closeAnalyticModal, data }) {
+export default function CheckReportModal({ analyticModal, closeAnalyticModal}) {
+
+  const projectList = useSelector(state => state.projectStore)
+  const activeData = useSelector(state => state.taskStore)
+  const [data, setTaskData] = useState(projectList[0].projectTasks)
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -30,6 +22,12 @@ export default function CheckReportModal({ analyticModal, closeAnalyticModal, da
     p: 4,
     maxWidth: "700px",
   }
+
+  useEffect(()=>{
+    const data = projectList.find((data) => data.projectName === activeData["activeProject"])
+    setTaskData(data.projectTasks)
+  },[activeData])
+
   return (
     <Modal open={analyticModal} onClose={closeAnalyticModal}>
       <Box sx={style}>

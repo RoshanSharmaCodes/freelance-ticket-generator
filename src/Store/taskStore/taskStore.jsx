@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = { activeProject: "Project 51", activeTask: "" }
 
-const teamSlice = createSlice({
+const taskSlice = createSlice({
   name: "taskStore",
   initialState,
   reducers: {
@@ -15,5 +15,5 @@ const teamSlice = createSlice({
   },
 })
 
-export const { changeActiveTask, changeActiveProject} = teamSlice.actions
-export default teamSlice.reducer
+export const { changeActiveTask, changeActiveProject} = taskSlice.actions
+export default taskSlice.reducer

@@ -8,7 +8,7 @@ import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
 import { useDispatch, useSelector } from "react-redux"
-import { changeActiveTask, changeActiveProject } from "../../Store/taskStore/taskStore"
+import { changeActiveProject } from "../../Store/taskStore/taskStore"
 
 export default function Sidebar() {
   

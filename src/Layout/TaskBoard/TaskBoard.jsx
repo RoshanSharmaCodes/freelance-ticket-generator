@@ -35,8 +35,6 @@ export default function TaskBoard() {
 
   useEffect(()=>{
     const data = projectList.find((data) => data.projectName === activeProject["activeProject"])
-    console.log("UseEffect: "+ data.toString())
-    console.log("UseEffect Active Projeect",activeProject["activeProject"])
     setTaskData(data.projectTasks)
   },[activeProject])
   
