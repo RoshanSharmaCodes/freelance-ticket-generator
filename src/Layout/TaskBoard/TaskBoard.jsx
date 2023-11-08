@@ -12,11 +12,10 @@ export default function TaskBoard() {
   
   const projectList = useSelector(state => state.projectStore)
   console.log("Project Data : ",projectList[0].projectTasks)
+  var [taskData, setTaskData] = useState(projectList[0].projectTasks)
   const activeProject = useSelector(state => state.taskStore)
   const [taskModal, setTaskModal] = useState(false)
-  var [taskData, setTaskData] = useState(projectList[0].projectTasks)
-
-
+  
   const openTaskModal = () => {
     setTaskModal(true)
   }
@@ -30,7 +29,7 @@ export default function TaskBoard() {
   }
 
   const handleTaskDelete = (id) => {
-    const taskData = taskData.filter((data) => data.taskId != id)
+    taskData = taskData.filter((data) => data.taskId != id)
     setTaskData(taskData)
   }
 
