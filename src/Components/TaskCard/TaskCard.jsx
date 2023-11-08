@@ -51,7 +51,7 @@ export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
       <Card sx={{ height: 260, width: 300 }}>
         <CardHeader
           sx={{ fontSize: 15, backgroundColor: "#e0e0e0" }}
-          title={data.taskName}
+          title={data.taskName.length> 25?data.taskName.slice(0,19)+"...":data.taskName}
           subheader={"Created On: "+ data.taskCreatedOn}
           action={
             <IconButton

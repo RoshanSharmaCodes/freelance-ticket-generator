@@ -8,7 +8,7 @@ import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
 import { useDispatch, useSelector } from "react-redux"
-import { changeActiveTask } from "../../Store/taskStore/taskStore"
+import { changeActiveTask, changeActiveProject } from "../../Store/taskStore/taskStore"
 
 export default function Sidebar() {
   
@@ -66,7 +66,7 @@ export default function Sidebar() {
   }
   const handleProjectChange = (e) => {
     setProjectName(e.target.value)
-    taskDispatch(changeActiveTask(e.target.value))
+    taskDispatch(changeActiveProject(e.target.value))
   }
 
   const openProfilePicWindow = () => {
