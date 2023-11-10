@@ -24,7 +24,6 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
 
   const sendInviteRequrest = (data) => {
     dispatch(addTeam(data))
-    console.log("Add Team", data)
     closeAddTeamModal()
   }
 

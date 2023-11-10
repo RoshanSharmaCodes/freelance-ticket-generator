@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [{id:1, clientName:"Vikas", clientEmail:"vm66353@gmail.com"},{id:2, clientName:"Roshan", clientEmail:"roshan.rks2812000@gmail.com"}]
+let initialState = [{id:1, clientName:"Vikas", clientEmail:"vm66353@gmail.com"},{id:2, clientName:"Roshan", clientEmail:"roshan.rks2812000@gmail.com"}]
 
 const clientSlice = createSlice({
     name:"clientStore",
     initialState,
     reducers: {
         addClient(state,action){
-            console.log("addClient",action.payload)
-            state.push(action.payload)            
+            return  [...state, action.payload]
         },
         removeClient(state,action){
             return state.filter((item) => item.id !== action.payload.id)

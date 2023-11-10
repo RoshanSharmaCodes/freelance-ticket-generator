@@ -38,14 +38,14 @@ export default function Appbar() {
   }
 
   const downloadReport = async () => {
-    const createReport = await fetch("http://localhost:5000/createReport", {
+    const createReport = await fetch("https://project-mng-tool-backend.vercel.app/createReport", {
       method: "POST", // Use the POST method
       headers: {
         "Content-Type": "application/json",
       },
     })
 
-    const getReport = await fetch("http://localhost:5000/getReport", {
+    const getReport = await fetch("https://project-mng-tool-backend.vercel.app/getReport", {
       method: "GET", // Use the POST method
       headers: {
         "Content-Type": "application/json",

@@ -11,7 +11,6 @@ import { useSelector } from "react-redux"
 export default function TaskBoard() {
   
   const projectList = useSelector(state => state.projectStore)
-  console.log("Project Data : ",projectList[0].projectTasks)
   var [taskData, setTaskData] = useState(projectList[0].projectTasks)
   const activeProject = useSelector(state => state.taskStore)
   const [taskModal, setTaskModal] = useState(false)

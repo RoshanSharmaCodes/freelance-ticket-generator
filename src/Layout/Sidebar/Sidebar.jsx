@@ -77,6 +77,7 @@ export default function Sidebar() {
     const file = e.target.files[0]
     const reader = new FileReader()
     const url = reader.readAsDataURL(file)
+    console.log("URL", url)
     reader.onloadend = () => {
       setImageUrl(reader.result)
     }
