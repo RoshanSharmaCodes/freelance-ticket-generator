@@ -13,11 +13,11 @@ export default function AddProjectModal({ projectModal, closeProjectModal }) {
 
   const projectsForm = useForm({
     defaultValues: {
-      id: projectList.length + 1,
-      projectNameInp: "",
-      projectStartDateInp: "",
-      clientsNameInp: "",
-      clientsEmailInp: "",
+      id: projectList.data.length + 1,
+      projectName: "",
+      projectStartDate: "",
+      clientName: "",
+      clientEmail: "",
     },
   })
 
@@ -52,9 +52,9 @@ export default function AddProjectModal({ projectModal, closeProjectModal }) {
           <InputLabel htmlFor="project-name-input">Project Name</InputLabel>
           <TextField
             id="project-name-input"
-            {...projectRegister("projectNameInp", { required: "Please enter project's name" })}
-            helperText={projectError.projectNameInp?.message}
-            error={!!projectError.projectNameInp}
+            {...projectRegister("projectName", { required: "Please enter project's name" })}
+            helperText={projectError.projectName?.message}
+            error={!!projectError.projectName}
           />
 
           <InputLabel htmlFor="project-start-date">Project Start Date</InputLabel>
@@ -65,17 +65,17 @@ export default function AddProjectModal({ projectModal, closeProjectModal }) {
           <InputLabel htmlFor="clients-name">Client's Name</InputLabel>
           <TextField
             id="clients-name"
-            {...projectRegister("clientsNameInp", { required: "Please enter client's name" })}
-            helperText={projectError.clientsNameInp?.message}
-            error={!!projectError.clientsNameInp}
+            {...projectRegister("clientName", { required: "Please enter client's name" })}
+            helperText={projectError.clientName?.message}
+            error={!!projectError.clientName}
           />
 
           <InputLabel htmlFor="clients-email">Client's Email</InputLabel>
           <TextField
             id="clients-email"
-            {...projectRegister("clientsEmailInp", { required: "Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
-            helperText={projectError.clientsEmailInp?.message}
-            error={!!projectError.clientsEmailInp}
+            {...projectRegister("clientEmail", { required: "Please enter client's email", pattern: "/^[^@ ]+@[^@ ]+.[^@ .]{2,}$/" })}
+            helperText={projectError.clientEmail?.message}
+            error={!!projectError.clientEmail}
           />
 
           <Button type="submit" variant="contained">

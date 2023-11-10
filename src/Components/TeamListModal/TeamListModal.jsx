@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 export default function TeamListModal({TeamListModal,closeTeamListModal,openTeamModal,data}) {
   const style = {
@@ -20,14 +20,7 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     maxWidth: "700px",
   }
 
-  const rows = [
-    { id: 1, teamMemberName: "Snow Mark", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Admin" },
-    { id: 2, teamMemberName: "Lannister Kevin", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Editor" },
-    { id: 3, teamMemberName: "Lannister Robert", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Editor" },
-    { id: 4, teamMemberName: "Stark Braddy", teamMemberEmail: "abc@gmail.com", teamMemberRole: "Viewer" },
-  ]
-
-  const [teamListData, setTeamListData] = useState(data)
+  const [teamListData, setTeamListData] = useState(data.data)
 
   const handleCancelClick = () => {}
 
@@ -97,7 +90,9 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     },
   ]
 
-
+  useEffect(()=>{
+    setTeamListData(data.data)
+  },[data])
 
   return (
     <div>

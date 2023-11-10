@@ -16,7 +16,7 @@ export default function Sidebar() {
   const projectList = useSelector(state => state.projectStore)
   const teamList = useSelector(state => state.teamStore)
   const taskDispatch = useDispatch()
-  const [projectName, setProjectName] = useState(projectList[0].projectName)
+  const [projectName, setProjectName] = useState(projectList.data[0].projectName)
   const [contactModal, setContactModal] = useState(false)
   const [projectModal, setProjectModal] = useState(false)
   const [clientListModal, setClientListModal] = useState(false)
@@ -118,7 +118,7 @@ export default function Sidebar() {
             style={{ minWidth: 200 }}
             onChange={(e) => handleProjectChange(e)}
           >
-            {projectList.map((data) => (
+            {projectList.data.map((data) => (
               <MenuItem key={data.projectName} value={data.projectName}>
                 {data.projectName}
               </MenuItem>

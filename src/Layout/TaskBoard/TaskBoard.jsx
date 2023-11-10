@@ -11,7 +11,7 @@ import { useSelector } from "react-redux"
 export default function TaskBoard() {
   
   const projectList = useSelector(state => state.projectStore)
-  var [taskData, setTaskData] = useState(projectList[0].projectTasks)
+  var [taskData, setTaskData] = useState(projectList.data[0].projectTasks)
   const activeProject = useSelector(state => state.taskStore)
   const [taskModal, setTaskModal] = useState(false)
   
@@ -33,7 +33,7 @@ export default function TaskBoard() {
   }
 
   useEffect(()=>{
-    const data = projectList.find((data) => data.projectName === activeProject["activeProject"])
+    const data = projectList.data.find((data) => data.projectName === activeProject["activeProject"])
     setTaskData(data.projectTasks)
   },[activeProject])
   

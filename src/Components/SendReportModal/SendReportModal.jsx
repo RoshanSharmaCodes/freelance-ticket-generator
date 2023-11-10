@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function SendReportModal({ sendReportModal, closeSendReportModal }) {
 
   const clientList = useSelector(state => state.clientStore)
-  const [senderNameState, setSenderName] = useState(clientList[0].clientName)
+  const [senderNameState, setSenderName] = useState(clientList.data[0].clientName)
   const sendReportFormRef = useRef()
 
   const handleSenderNameChange = (e)=> {
@@ -28,7 +28,7 @@ export default function SendReportModal({ sendReportModal, closeSendReportModal 
   const sendReportSubmit = (e) => {
     var EmailInfo = {
       senderName: e.senderName,
-      senderEmail: clientList.find(item=> item.clientName === e.senderName).clientEmail,
+      senderEmail: clientList.data.find(item=> item.clientName === e.senderName).clientEmail,
       senderMessage: e.senderMessage
     };
     emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID, EmailInfo, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
@@ -67,7 +67,7 @@ export default function SendReportModal({ sendReportModal, closeSendReportModal 
             name="senderName"
           > 
             {
-              clientList.map(item=> (<MenuItem value={item.clientName}>{item.clientName}</MenuItem>))
+              clientList.data.map(item=> (<MenuItem value={item.clientName}>{item.clientName}</MenuItem>))
             } 
           </Select>
           <InputLabel htmlFor="project-name-input">Message</InputLabel>

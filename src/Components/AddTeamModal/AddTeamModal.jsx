@@ -3,16 +3,19 @@ import { Box, Button, InputLabel, MenuItem, Modal, Select, TextField } from "@mu
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { addTeam } from "../../Store/teamStore/teamStore"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
   const [addTeamAccess, setAddTeamAccess] = useState("Viewer")
+  const teamList = useSelector(state => state.teamStore)
   const dispatch = useDispatch()
   const addTeamForm = useForm({
     defaultValues: {
+      id: teamList.data.length + 1,
       teamMemberEmail: "",
       teamMemberName: "",
       teamMemberRole: "",
+      teamMemberStatus: "Requested"
     },
   })
   const { register: addTeamRegister, handleSubmit: handleAddTeam, formState: addTeamFormState } = addTeamForm

@@ -8,7 +8,7 @@ export default function AddClientModal({contactModal, closeContactModal}) {
   const clientList = useSelector(state => state.clientStore)
     const clientsForm = useForm({
         defaultValues: {
-          id: clientList.length + 1,
+          id: clientList.data.length + 1,
           clientName: "",
           clientEmail: "",
         },

@@ -5,8 +5,9 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
-export default function ClientListModal({ clientListModal, closeClientListModal, openClientListModal, data }) {
+export default function ClientListModal({ clientListModal, closeClientListModal, openClientListModal,data}) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,7 +21,7 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
     maxWidth: "800px",
   }
 
-  const [clientListData, setClientListData] = useState(data)
+  const [clientListData, setClientListData] = useState(data.data)
 
   const handleCancelClick = () => {}
 
@@ -85,6 +86,8 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
           ]
         }
 
+     
+
         return [
           <GridActionsCellItem
             id={"CList-Edit-" + data.id}
@@ -102,8 +105,8 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
 
 
   useEffect(()=>{
-    
-  })
+    setClientListData(data.data)
+  },[data])
 
   return (
     <div>

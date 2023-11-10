@@ -8,7 +8,7 @@ export default function CheckReportModal({ analyticModal, closeAnalyticModal}) {
 
   const projectList = useSelector(state => state.projectStore)
   const activeData = useSelector(state => state.taskStore)
-  const [data, setTaskData] = useState(projectList[0].projectTasks)
+  const [data, setTaskData] = useState(projectList.data[0].projectTasks)
 
   const style = {
     position: "absolute",
@@ -24,7 +24,7 @@ export default function CheckReportModal({ analyticModal, closeAnalyticModal}) {
   }
 
   useEffect(()=>{
-    const data = projectList.find((data) => data.projectName === activeData["activeProject"])
+    const data = projectList.data.find((data) => data.projectName === activeData["activeProject"])
     setTaskData(data.projectTasks)
   },[activeData])
 
