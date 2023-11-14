@@ -1,5 +1,5 @@
 import { DataGrid, GridActionsCell, GridRowModes, GridActionsCellItem, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
-import { Box, Modal } from "@mui/material"
+import { Box, Chip, Modal } from "@mui/material"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
@@ -44,9 +44,18 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
     {
       field: "clientProject",
       headerName: "Client's Project",
-      width: 130,
+      width: 270,
       editable: false,
-      align: "center",
+      align: "left",
+      renderCell: param => {
+        return(
+          <div>
+          <Chip label="Project"/>
+          <Chip label="Project"/>
+          <Chip label="Project"/>
+          </div>
+        )
+      }
     },
     {
       field: "clientEmail",
@@ -55,14 +64,6 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
       width: 200,
       editable: false,
       align: "left",
-    },
-    {
-      field: "clientEarning",
-      headerName: "Earnings",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 100,
-      align: "center",
     },
     {
       field: "actions",
