@@ -12,7 +12,7 @@ export default function TaskBoard() {
   
   const projectList = useSelector(state => state.projectStore)
   var [taskData, setTaskData] = useState(projectList.data[0].projectTasks)
-  const activeProject = useSelector(state => state.taskStore)
+  const activeProject = useSelector(state => state.projectStore)
   const [taskModal, setTaskModal] = useState(false)
   
   const openTaskModal = () => {

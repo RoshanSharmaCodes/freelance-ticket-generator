@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 export default function CheckReportModal({ analyticModal, closeAnalyticModal}) {
 
   const projectList = useSelector(state => state.projectStore)
-  const activeData = useSelector(state => state.taskStore)
+  const activeData = useSelector(state => state.projectStore)
   const [data, setTaskData] = useState(projectList.data[0].projectTasks)
 
   const style = {

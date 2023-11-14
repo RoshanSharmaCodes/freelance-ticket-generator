@@ -8,14 +8,15 @@ import TeamListModal from "../../Components/TeamListModal/TeamListModal"
 import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
 import { useDispatch, useSelector } from "react-redux"
-import { changeActiveProject } from "../../Store/taskStore/taskStore"
+import { changeActiveProject } from "../../Store/projectStore/projectStore"
+
 
 export default function Sidebar() {
   
   const clientList = useSelector(state => state.clientStore)
   const projectList = useSelector(state => state.projectStore)
   const teamList = useSelector(state => state.teamStore)
-  const taskDispatch = useDispatch()
+  const dispatch = useDispatch()
   const [projectName, setProjectName] = useState(projectList.data[0].projectName)
   const [contactModal, setContactModal] = useState(false)
   const [projectModal, setProjectModal] = useState(false)
@@ -66,7 +67,7 @@ export default function Sidebar() {
   }
   const handleProjectChange = (e) => {
     setProjectName(e.target.value)
-    taskDispatch(changeActiveProject(e.target.value))
+    dispatch(changeActiveProject(e.target.value))
   }
 
   const openProfilePicWindow = () => {

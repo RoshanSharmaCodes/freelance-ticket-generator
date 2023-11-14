@@ -5,18 +5,23 @@ import { Box, Button, InputLabel, TextField, MenuItem, Modal, Select } from "@mu
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { useState } from "react"
 import dayjs from "dayjs"
+import { useDispatch, useSelector } from "react-redux"
+import { addTaskToProject } from "../../Store/projectStore/projectStore"
 
 export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, data}) {
 
-  const [taskStatus, setTaskStatus] = useState(prefillMode?data.taskStatus:"Not Started")
+  const [taskStatus, setTaskStatus] = useState("Not Started")
+  const dispatch = useDispatch()
+
   const TaskForm = useForm({
     defaultValues: {
-      taskNameInp: "",
-      taskStartDateInp: "",
-      taskDescInp: "",
-      taskHoursInp: "",
-      taskCostInp: "",
-      taskStatusInp: "",
+      taskName: "",
+      taskCreatedOn: "",
+      taskDescription: "",
+      taskDuration: "",
+      taskPerHourCost: "",
+      taskStatus: "",
+      taskAssignedTo: "Sugam"
     },
   })
 
@@ -27,7 +32,8 @@ export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, da
     setTaskStatus(e.target.value)
   }
   const taskCreateSubmit = (data) => {
-    console.log("Task Created",data.taskNameInp)
+    dispatch(addTaskToProject(data))
+    closeTaskModal()
   }
   const projectModalStyle = {
     position: "absolute",
@@ -51,58 +57,55 @@ export default function AddTaskModal({taskModal, closeTaskModal, prefillMode, da
           <InputLabel htmlFor="project-name-input">Task Name</InputLabel>
           <TextField
             id="project-name-input"
-            name="taskNameInp"
-            {...taskRegister("taskNameInp", { required: "Please enter task name" })}
-            error={!!errors.taskNameInp}
-            helperText={errors.taskNameInp?.message}
-            value={prefillMode?data.taskName:""}
+            name="taskName"
+            {...taskRegister("taskName", { required: "Please enter task name" })}
+            error={!!errors.taskName}
+            helperText={errors.taskName?.message}
           />
 
           <InputLabel htmlFor="project-start-date">Task Start Date</InputLabel>
           <LocalizationProvider dateAdapter={AdapterDayjs} >
             <DatePicker
-              {...taskRegister("taskStartDateInp", { required: "Please enter start date" })}
-              error={!!errors.taskStartDateInp}
-              helperText={errors.taskStartDateInp?.message}
-              value={prefillMode?dayjs("12-11-2023","DD-MM-YYYY"):dayjs(new Date())}
+              // {...taskRegister("taskCreatedOn", { required: "Please enter start date" })}
+              // error={!!errors.taskCreatedOn}
+              // helperText={errors.taskCreatedOn?.message}
             />
           </LocalizationProvider>
 
           <InputLabel htmlFor="clients-name">Task Description</InputLabel>
           <TextField
             id="clients-name"
-            {...taskRegister("taskDescInp", { required: "Please enter task description" })}
-            error={!!errors.taskDescInp}
-            helperText={errors.taskDescInp?.message}
-            value={prefillMode?data.taskDescription:""}
+            {...taskRegister("taskDescription", { required: "Please enter task description" })}
+            error={!!errors.taskDescription}
+            helperText={errors.taskDescription?.message}
           />
 
           <InputLabel htmlFor="project-name-input">No. of Hours Required</InputLabel>
           <TextField
-            id="taskHoursInp"
-            {...taskRegister("taskHoursInp", { required: "Please enter no of hours required" })}
-            error={!!errors.taskHoursInp}
-            helperText={errors.taskHoursInp?.message}
-            value={prefillMode?data.taskDuration:""}
+            id="taskDuration"
+            {...taskRegister("taskDuration", { required: "Please enter no of hours required" })}
+            error={!!errors.taskDuration}
+            helperText={errors.taskDuration?.message}
           />
 
           <InputLabel htmlFor="project-name-input">Cost Per Hour</InputLabel>
           <TextField
-            id="taskCostInp"
-            {...taskRegister("taskCostInp", { required: "Please enter cost per hour" })}
-            error={!!errors.taskCostInp}
-            helperText={errors.taskCostInp?.message}
-            value={prefillMode?data.taskPerHourCost:""}
+            id="taskPerHourCost"
+            {...taskRegister("taskPerHourCost", { required: "Please enter cost per hour" })}
+            error={!!errors.taskPerHourCost}
+            helperText={errors.taskPerHourCost?.message}
           />
 
           <InputLabel id="demo-simple-select-label">Task Status</InputLabel>
-          <Select id="demo-simple-select" value={taskStatus} onChange={(e) => handleStatusChange(e)}>
+          <Select id="demo-simple-select" value={taskStatus}  {...taskRegister("taskStatus", { required: "Please enter cost per hour" })}
+            error={!!errors.taskStatus}
+            helperText={errors.taskStatus?.message} onChange={(e) => handleStatusChange(e)}>
             <MenuItem value={"Not Started"}>Not Started</MenuItem>
             <MenuItem value={"WIP"}>WIP</MenuItem>
             <MenuItem value={"Done"}>Done</MenuItem>
-            <MenuItem value={"Problem Occured"}>Pending</MenuItem>
+            <MenuItem value={"Pending"}>Pending</MenuItem>
           </Select>
-          <Button type="submit" variant="contained">{prefillMode?"Update Task":"Add Task"}</Button>
+          <Button type="submit" variant="contained">Add Task</Button>
         </Box>
       </form>
     </Modal>

@@ -49,6 +49,7 @@ export default function ProjectListModal({ projectListModal, closeProjectListMod
       width: 100,
       editable: false,
       align: "center",
+      valueGetter: param => param.row.projectTasks.reduce((total,task)=> parseInt(total + parseInt(task.taskDuration)),0)
     },
     {
       field: "projectCost",
@@ -57,6 +58,10 @@ export default function ProjectListModal({ projectListModal, closeProjectListMod
       width: 100,
       editable: false,
       align: "center",
+      valueGetter: param => {
+        console.log(param)
+       return param.row.projectTasks.reduce((total,task)=> parseInt(total + parseInt(task.taskPerHourCost)),0) 
+      }
     },
     {
       field: "clientName",
