@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { addTeam } from "../../Store/teamStore/teamStore"
 import { useDispatch, useSelector } from "react-redux"
+import emailjs from '@emailjs/browser';
 
 export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
   const [addTeamAccess, setAddTeamAccess] = useState("Viewer")
@@ -26,6 +27,16 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
   }
 
   const sendInviteRequrest = (data) => {
+    
+    const resJSON = {name:"Sachin Mishra",email:"sachin@gmail.com", password: "12345@0", admin_name: "Roshan"}
+
+    emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID_2, resJSON, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    })
+
     dispatch(addTeam(data))
     closeAddTeamModal()
   }

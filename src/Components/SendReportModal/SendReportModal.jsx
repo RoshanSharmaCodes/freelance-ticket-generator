@@ -31,7 +31,7 @@ export default function SendReportModal({ sendReportModal, closeSendReportModal 
       senderEmail: clientList.data.find(item=> item.clientName === e.senderName).clientEmail,
       senderMessage: e.senderMessage
     };
-    emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID, EmailInfo, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
+    emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID_1, EmailInfo, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
     .then((result) => {
         console.log(result.text);
     }, (error) => {
