@@ -28,7 +28,7 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
 
   const sendInviteRequrest = (data) => {
     
-    const resJSON = {name:"Sachin Mishra",email:"sachin@gmail.com", password: "12345@0", admin_name: "Roshan"}
+    const resJSON = {name:"Sachin Mishra",email:"roshan.rks2812000@gmail.com", password: "12345@0", admin_name: "Roshan", role:"Admin"}
 
     emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID_2, resJSON, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
     .then((result) => {
@@ -36,7 +36,6 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
     }, (error) => {
         console.log(error.text);
     })
-
     dispatch(addTeam(data))
     closeAddTeamModal()
   }
