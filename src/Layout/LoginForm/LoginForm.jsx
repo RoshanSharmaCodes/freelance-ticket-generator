@@ -37,6 +37,10 @@ export default function LoginForm() {
           <span style={{ fontSize: 13, color: "grey" }}>
             Don't have an account? <Link to="/Register">Click Here</Link>
           </span>
+          <br/>
+          <span style={{ fontSize: 13, color: "grey" }}>
+            Forgot Password? <Link to="/ForgotPassword">Click Here</Link>
+          </span>
         </div>
       </div>
     </div>
