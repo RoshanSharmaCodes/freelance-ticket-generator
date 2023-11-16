@@ -26,10 +26,8 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
     setAddTeamAccess(e.target.value)
   }
 
-  const sendInviteRequrest = (data) => {
-    
+  const sendInviteRequrest = async (data) => {
     const resJSON = {name:"Sachin Mishra",email:"roshan.rks2812000@gmail.com", password: "12345@0", admin_name: "Roshan", role:"Admin"}
-
     emailjs.send(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID_2, resJSON, process.env.REACT_APP_EMAIL_PUBLIC_KEY)
     .then((result) => {
         console.log(result.text);
@@ -37,6 +35,14 @@ export default function AddTeamModal({ addTeamModal, closeAddTeamModal }) {
         console.log(error.text);
     })
     dispatch(addTeam(data))
+    let headers = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(resJSON)
+    }
+    let response = await fetch("http://localhost:5000/team/teamAdd",headers)
     closeAddTeamModal()
   }
 

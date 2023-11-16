@@ -9,6 +9,7 @@ import AddClientModal from "../../Components/AddClientModal/AddClientModal"
 import AddProjectModal from "../../Components/AddProjectModal/AddProjectModal"
 import { useDispatch, useSelector } from "react-redux"
 import { changeActiveProject } from "../../Store/projectStore/projectStore"
+import { useNavigate } from "react-router-dom"
 
 
 export default function Sidebar() {
@@ -24,6 +25,7 @@ export default function Sidebar() {
   const [projectListModal, setProjectListModal] = useState(false)
   const [teamListModal, setTeamListModal] = useState(false)
   const [imageUrl, setImageUrl] = useState(null);
+  const navigate = useNavigate()
   
 
   const openContactModal = () => {
@@ -82,6 +84,10 @@ export default function Sidebar() {
     reader.onloadend = () => {
       setImageUrl(reader.result)
     }
+  }
+
+  const handleLogOut = () => {
+    navigate("/")
   }
 
   return (
@@ -155,6 +161,7 @@ export default function Sidebar() {
             borderColor: "#1976d2",
             borderWidth: 3,
           }}
+          onClick={handleLogOut}
         >
           Logout
         </Button>

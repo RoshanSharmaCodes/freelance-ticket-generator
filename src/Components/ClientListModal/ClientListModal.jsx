@@ -5,7 +5,6 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 
 export default function ClientListModal({ clientListModal, closeClientListModal, openClientListModal,data}) {
   const style = {
@@ -50,9 +49,9 @@ export default function ClientListModal({ clientListModal, closeClientListModal,
       renderCell: param => {
         return(
           <div>
-          <Chip label="Project"/>
-          <Chip label="Project"/>
-          <Chip label="Project"/>
+          <Chip label="Project" variant="outlined" style={{marginRight:3}}/>
+          <Chip label="Project" variant="outlined" style={{marginRight:3}}/>
+          <Chip label="Project" variant="outlined" style={{marginRight:3}}/>
           </div>
         )
       }

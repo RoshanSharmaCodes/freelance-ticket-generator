@@ -5,8 +5,10 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CancelIcon from "@mui/icons-material/Close"
 import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchTeam } from "../../Store/teamStore/teamStore"
 
-export default function TeamListModal({TeamListModal,closeTeamListModal,openTeamModal,data}) {
+export default function TeamListModal({TeamListModal,closeTeamListModal,openTeamModal}) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -19,8 +21,9 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     p: 4,
     maxWidth: "700px",
   }
-
-  const [teamListData, setTeamListData] = useState(data.data)
+  const dispatch = useDispatch()
+  const teamList = useSelector(state => state.teamStore)
+  const [teamListData, setTeamListData] = useState(teamList.data)
 
   const handleCancelClick = () => {}
 
@@ -90,9 +93,11 @@ export default function TeamListModal({TeamListModal,closeTeamListModal,openTeam
     },
   ]
 
+
   useEffect(()=>{
-    setTeamListData(data.data)
-  },[data])
+    dispatch(fetchTeam())
+    setTeamListData(teamList.data)
+  },[teamList.data])
 
   return (
     <div>
