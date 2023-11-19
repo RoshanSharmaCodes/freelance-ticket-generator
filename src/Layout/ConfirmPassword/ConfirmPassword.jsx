@@ -8,7 +8,7 @@ export default function ConfirmPasswordForm() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const handleConfirmPassword = () => {
-    if(password === confirmPassword){
+    if((password === confirmPassword)&&password!=""){
       navigate("/")
     }else{
       alert("Wrong Password")
