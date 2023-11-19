@@ -8,15 +8,27 @@ export default function ForgotPasswordForm() {
   const navigate = useNavigate()
   const [elementState, setElementState] = useState(true)
   const [timer, setTimer] = useState(60)
+  const [email, setEmail] = useState("")
+  const [otp, setOtp] = useState("")
+  const [verifyOtp, setVerifyOtp] = useState("")
   
   const handleSendOTP = () => {
     setElementState(false)
     document.getElementsByClassName("resendOTPDiv")[0].style.display = "block"
+    let tempOtp = Math.floor(100000 + Math.random() * 900000)
+    console.log(JSON.stringify(tempOtp))
+    setOtp(tempOtp)
   }
 
 
   const handleVerifyOTP = () =>{
+    if(otp == verifyOtp){
       navigate("/ConfirmPassword")
+    }else{
+      console.log(otp)
+      console.log(verifyOtp)
+     alert("Wrong Password")
+    }
   }
 
   const handleResendOTP = () => {
@@ -25,18 +37,21 @@ export default function ForgotPasswordForm() {
 
   useEffect(()=>{
     let timeInterval = setTimeout(()=>{
-      console.log("Timer is running")
       if(timer<=0) return
       setTimer(timer-1)
     },1000)
     return ()=> clearInterval(timeInterval)
   },[timer])
 
+  useEffect(()=>{
+    console.log(email)
+  },[email])
+
   return (
     <div className="forgotContainer">
       <div className="forgotMainForm">
         <div className="forgotMain">
-          <TextField id="standard-basic" label="Type Your Email" variant="outlined" style={{marginBottom: 10}} />
+          <TextField id="standard-basic" label="Type Your Email" variant="outlined" style={{marginBottom: 10}} onChange={(e)=>setEmail(e.target.value)}/>
           <Button variant="contained" onClick={handleSendOTP} color="success"> 
             Sent OTP
           </Button>
@@ -47,7 +62,7 @@ export default function ForgotPasswordForm() {
             Resend OTP? ({timer})
           </span>}
         </div>
-          <TextField id="standard-basic" label="OTP" variant="outlined"style={{marginBottom: 10}} disabled={elementState}/>
+          <TextField id="standard-basic" label="OTP" variant="outlined"style={{marginBottom: 10}} disabled={elementState} onChange={(e)=>setVerifyOtp(e.target.value)}/>
           <Button variant="contained" onClick={handleVerifyOTP} color="success" style={{marginBottom: 20}} disabled={elementState}> 
             Verify
           </Button>
