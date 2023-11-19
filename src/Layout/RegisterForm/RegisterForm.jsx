@@ -26,7 +26,7 @@ export default function RegisterForm() {
           </div>
           <div className="RegisterFooter">
             <span style={{ fontSize: 13, color: "grey" }}>
-              Already have an account ? <Link to="/">Login</Link>
+              Already have an account ? <Link to="/">Click Here</Link>
             </span>
           </div>
         </div>
