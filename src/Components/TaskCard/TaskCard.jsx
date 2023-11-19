@@ -10,13 +10,14 @@ import MenuItem from "@mui/material/MenuItem"
 import Menu from "@mui/material/Menu"
 import Select from "@mui/material/Select"
 import AddTaskModal from "../AddTaskModal/AddTaskModal"
+import { useSelector } from "react-redux"
 
 export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
   const [taskStatus, setTaskStatus] = useState(data.taskStatus)
   const [assignee, setAssignee] = useState(data.taskAssignedTo)
   const [anchorEl, setAnchorEl] = useState(null)
   const [prefillTaskModal, setPrefillTaskModal] = useState(false)
-
+  const teamList = useSelector(state=>state.teamStore)
   let headerColor = taskStatus === "WIP"? "#ffc830" : taskStatus === "Done"? "#66ff47": taskStatus === "Not Started"? "lightblue": "#ff6e42";
 
   const closePrefillTaskModal = () => {
@@ -73,10 +74,9 @@ export default function TaskCard({data,handleTaskDelete,handleTaskEdit}) {
             <div>
               <InputLabel id="demo-simple-select-label">Assigned To:</InputLabel>
               <Select id="demo-simple-select" value={assignee} onChange={handleAssigneeChange} style={{ height: 35, width: 130 }}>
-                <MenuItem value={"Raj"}>Raj</MenuItem>
-                <MenuItem value={"Vikas"}>Vikas</MenuItem>
-                <MenuItem value={"Sushrut"}>Sushrut</MenuItem>
-                <MenuItem value={"Sugam"}>Sugam</MenuItem>
+                {
+                  teamList.data.map(item=> <MenuItem value={item.teamMemberName}>{item.teamMemberName}</MenuItem>)
+                }
               </Select>
             </div>
             <div>
