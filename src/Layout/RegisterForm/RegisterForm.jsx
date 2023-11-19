@@ -15,7 +15,7 @@ export default function RegisterForm() {
     },
   })
 
-  const { register: regRegister, handleSubmit: handleRegisterSummit, formState: registerFormState } = registerForm
+  const { register: regRegister, handleSubmit: handleRegisterSummit, formState: registerFormState, watch } = registerForm
   const { errors } = registerFormState
   const handleRegisterForm = () => {
     navigate("/")
@@ -55,7 +55,7 @@ export default function RegisterForm() {
               />
               <TextField
                 id="standard-basic"
-                {...regRegister("registerConfirmPass", { required: "Please confirm your password..." })}
+                {...regRegister("registerConfirmPass", { required: "Please confirm your password...", validate: (val)=> {if(watch("registerPass")!=val){return "Password is not same"}} })}
                 error={!!errors.registerConfirmPass}
                 helperText={errors.registerConfirmPass?.message}
                 type="password"
